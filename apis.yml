@@ -1,0 +1,7 @@
+aid: block
+url: https://raw.githubusercontent.com/api-evangelist/block/refs/heads/main/apis.yml
+modified: '2026-03-21'
+apis: []
+common:
+  - type: Website
+    url: https://www.block.com
