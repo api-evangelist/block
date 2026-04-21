@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/block/main/json-structure/block-catalog-object-structure.json",
+  "title": "CatalogObject",
+  "description": "The wrapper object for catalog entries.",
+  "type": "object",
+  "members": [
+    { "name": "type", "type": "string", "description": "Object type: ITEM, ITEM_VARIATION, CATEGORY, etc." },
+    { "name": "id", "type": "string", "description": "Unique ID for this CatalogObject." },
+    { "name": "version", "type": "integer", "description": "Version for optimistic concurrency control." },
+    { "name": "item_data", "type": "object", "description": "Structured data for a CatalogItem." }
+  ]
+}

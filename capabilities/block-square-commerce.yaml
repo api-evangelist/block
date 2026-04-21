@@ -1,0 +1,59 @@
+name: Block Square Commerce
+description: >-
+  End-to-end commerce capability for Square sellers including payment processing,
+  order management, catalog browsing, and customer engagement. Supports in-person,
+  online, and omnichannel retail workflows.
+version: "1.0"
+persona:
+  - Retail Sellers
+  - eCommerce Developers
+  - Restaurant Operators
+  - App Integrators
+servers:
+  rest:
+    url: http://localhost:8080
+    protocol: rest
+  mcp:
+    url: http://localhost:9090
+    protocol: mcp
+tools:
+  - name: list-payments
+    operationId: list-payments
+    source:
+      capability: capabilities/shared/block-square-api.yaml
+    description: List payments processed by the Square account.
+  - name: create-payment
+    operationId: create-payment
+    source:
+      capability: capabilities/shared/block-square-api.yaml
+    description: Create a new payment using a card nonce or token.
+  - name: get-payment
+    operationId: get-payment
+    source:
+      capability: capabilities/shared/block-square-api.yaml
+    description: Get details for a specific payment by ID.
+  - name: create-order
+    operationId: create-order
+    source:
+      capability: capabilities/shared/block-square-api.yaml
+    description: Create a new order with line items for a location.
+  - name: list-catalog
+    operationId: list-catalog
+    source:
+      capability: capabilities/shared/block-square-api.yaml
+    description: List catalog items and products for a Square account.
+  - name: list-customers
+    operationId: list-customers
+    source:
+      capability: capabilities/shared/block-square-api.yaml
+    description: List customer profiles associated with the Square account.
+  - name: create-customer
+    operationId: create-customer
+    source:
+      capability: capabilities/shared/block-square-api.yaml
+    description: Create a new customer profile for the business.
+  - name: list-locations
+    operationId: list-locations
+    source:
+      capability: capabilities/shared/block-square-api.yaml
+    description: List all seller locations for the Square account.

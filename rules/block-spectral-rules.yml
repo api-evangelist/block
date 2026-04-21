@@ -1,0 +1,257 @@
+rules:
+  # Info rules
+  block-info-title:
+    description: API must have a title
+    severity: error
+    given: "$.info"
+    then:
+      field: title
+      function: truthy
+
+  block-info-description:
+    description: API must have a description
+    severity: error
+    given: "$.info"
+    then:
+      field: description
+      function: truthy
+
+  block-info-version:
+    description: API must have a version
+    severity: error
+    given: "$.info"
+    then:
+      field: version
+      function: truthy
+
+  block-info-contact:
+    description: API must have contact information
+    severity: warn
+    given: "$.info"
+    then:
+      field: contact
+      function: truthy
+
+  # Server rules
+  block-servers-exist:
+    description: API must have at least one server defined
+    severity: error
+    given: "$"
+    then:
+      field: servers
+      function: truthy
+
+  block-server-https:
+    description: Production server must use HTTPS
+    severity: error
+    given: "$.servers[*]"
+    then:
+      field: url
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  block-server-description:
+    description: Each server must have a description
+    severity: warn
+    given: "$.servers[*]"
+    then:
+      field: description
+      function: truthy
+
+  # Path rules
+  block-path-kebab-case:
+    description: Path segments must use kebab-case or snake_case
+    severity: warn
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/[a-z0-9_-{}]+)+$"
+
+  block-path-no-trailing-slash:
+    description: Paths must not have trailing slashes
+    severity: error
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "/$"
+
+  # Operation rules
+  block-operation-id-exists:
+    description: Every operation must have an operationId
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete,head,options,trace]"
+    then:
+      field: operationId
+      function: truthy
+
+  block-operation-id-kebab-case:
+    description: OperationId must use kebab-case
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete,head,options,trace]"
+    then:
+      field: operationId
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-z0-9-]+$"
+
+  block-operation-summary-exists:
+    description: Every operation must have a summary
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete,head,options,trace]"
+    then:
+      field: summary
+      function: truthy
+
+  block-operation-summary-title-case:
+    description: Operation summary must use title case and start with Block Square
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete,head,options,trace]"
+    then:
+      field: summary
+      function: pattern
+      functionOptions:
+        match: "^Block Square"
+
+  block-operation-description-exists:
+    description: Every operation must have a description
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete,head,options,trace]"
+    then:
+      field: description
+      function: truthy
+
+  block-operation-tags:
+    description: Every operation must have at least one tag
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete,head,options,trace]"
+    then:
+      field: tags
+      function: truthy
+
+  # Parameter rules
+  block-parameter-description:
+    description: All parameters must have a description
+    severity: warn
+    given: "$.paths[*][*].parameters[*]"
+    then:
+      field: description
+      function: truthy
+
+  block-parameter-schema:
+    description: All parameters must have a schema
+    severity: error
+    given: "$.paths[*][*].parameters[*]"
+    then:
+      field: schema
+      function: truthy
+
+  # Request body rules
+  block-request-body-description:
+    description: Request bodies should have a description
+    severity: warn
+    given: "$.paths[*][*].requestBody"
+    then:
+      field: description
+      function: truthy
+
+  # Response rules
+  block-response-success-exists:
+    description: Operations must have at least one 2xx response
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: responses
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          anyOf:
+            - required: ["200"]
+            - required: ["201"]
+            - required: ["202"]
+            - required: ["204"]
+
+  block-response-schema-exists:
+    description: Success responses must have a content schema
+    severity: warn
+    given: "$.paths[*][*].responses[200,201].content[*]"
+    then:
+      field: schema
+      function: truthy
+
+  block-response-examples:
+    description: Responses should include examples
+    severity: warn
+    given: "$.paths[*][*].responses[200,201].content[*]"
+    then:
+      field: examples
+      function: truthy
+
+  # Security rules
+  block-security-scheme-defined:
+    description: API must define security schemes
+    severity: error
+    given: "$.components"
+    then:
+      field: securitySchemes
+      function: truthy
+
+  block-global-security:
+    description: API should have global security defined
+    severity: warn
+    given: "$"
+    then:
+      field: security
+      function: truthy
+
+  # Schema rules
+  block-schema-type:
+    description: All schema objects must have a type
+    severity: warn
+    given: "$.components.schemas[*]"
+    then:
+      field: type
+      function: truthy
+
+  block-schema-description:
+    description: All schema components must have a description
+    severity: warn
+    given: "$.components.schemas[*]"
+    then:
+      field: description
+      function: truthy
+
+  block-property-description:
+    description: Schema properties should have descriptions
+    severity: info
+    given: "$.components.schemas[*].properties[*]"
+    then:
+      field: description
+      function: truthy
+
+  # Square-specific rules
+  block-idempotency-key:
+    description: POST operations creating resources should require idempotency_key
+    severity: warn
+    given: "$.paths[*].post.requestBody.content[*].schema.required[*]"
+    then:
+      function: pattern
+      functionOptions:
+        match: "idempotency_key"
+
+  block-money-object:
+    description: Money amounts should use the Money object pattern with amount and currency
+    severity: info
+    given: "$.components.schemas[*].properties[*_money]"
+    then:
+      function: truthy
+
+  block-cursor-pagination:
+    description: List operations should support cursor-based pagination
+    severity: info
+    given: "$.paths[*].get.parameters[*]"
+    then:
+      function: truthy

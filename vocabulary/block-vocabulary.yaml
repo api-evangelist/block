@@ -1,0 +1,55 @@
+name: Block Square Vocabulary
+description: >-
+  Unified taxonomy mapping resources, actions, workflows, and personas across
+  operational (OpenAPI) and capability (Naftiko) dimensions for the Square API.
+resources:
+  - name: Payment
+    description: A financial transaction processed through the Square platform.
+    operationalRef: "#/components/schemas/Payment"
+    capabilityRef: "capabilities/shared/block-square-api.yaml#operations/list-payments"
+  - name: Order
+    description: A collection of line items representing a purchase at a location.
+    operationalRef: "#/components/schemas/Order"
+    capabilityRef: "capabilities/shared/block-square-api.yaml#operations/create-order"
+  - name: CatalogObject
+    description: A product, variation, category, or modifier in the item catalog.
+    operationalRef: "#/components/schemas/CatalogObject"
+    capabilityRef: "capabilities/shared/block-square-api.yaml#operations/list-catalog"
+  - name: Customer
+    description: A customer profile stored in a Square seller's account.
+    operationalRef: "#/components/schemas/Customer"
+    capabilityRef: "capabilities/shared/block-square-api.yaml#operations/list-customers"
+  - name: Location
+    description: A physical or online business location owned by a Square seller.
+    operationalRef: "#/components/schemas/Location"
+    capabilityRef: "capabilities/shared/block-square-api.yaml#operations/list-locations"
+actions:
+  - name: Create Payment
+    description: Process a new payment using a card nonce, token, or payment source.
+    operationalRef: "openapi/block-square-api-openapi.yaml#/paths/~1payments/post"
+    capabilityRef: "capabilities/shared/block-square-api.yaml#operations/create-payment"
+  - name: Create Order
+    description: Create a new order with line items for fulfillment at a location.
+    operationalRef: "openapi/block-square-api-openapi.yaml#/paths/~1orders/post"
+    capabilityRef: "capabilities/shared/block-square-api.yaml#operations/create-order"
+  - name: Create Customer
+    description: Create a new customer profile for ongoing engagement and loyalty.
+    operationalRef: "openapi/block-square-api-openapi.yaml#/paths/~1customers/post"
+    capabilityRef: "capabilities/shared/block-square-api.yaml#operations/create-customer"
+  - name: List Resources
+    description: Retrieve paginated lists of payments, customers, catalog items, and locations.
+    operationalRef: "openapi/block-square-api-openapi.yaml#/paths/~1payments/get"
+    capabilityRef: "capabilities/shared/block-square-api.yaml#operations/list-payments"
+workflows:
+  - name: Block Square Commerce
+    description: End-to-end commerce workflow for payment processing and order management.
+    capabilityRef: "capabilities/block-square-commerce.yaml"
+personas:
+  - name: Retail Sellers
+    description: Small and medium businesses using Square for point-of-sale and ecommerce.
+  - name: eCommerce Developers
+    description: Developers integrating Square payments and catalog into online stores.
+  - name: Restaurant Operators
+    description: Food service businesses using Square for table-side ordering and payments.
+  - name: App Integrators
+    description: Third-party ISVs and developers building apps on the Square App Marketplace.

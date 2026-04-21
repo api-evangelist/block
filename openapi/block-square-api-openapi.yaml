@@ -1,0 +1,700 @@
+openapi: 3.0.3
+info:
+  title: Square API
+  description: >-
+    Square API provides payment processing, commerce, customer management, and
+    business operations capabilities for sellers, developers, and merchants.
+    Supports point-of-sale, ecommerce, invoicing, loyalty, gift cards, and more.
+  version: 2026-01-22
+  contact:
+    name: Square Developer Support
+    url: https://developer.squareup.com/forums
+  termsOfService: https://squareup.com/us/en/legal/general/developer
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+  - url: https://connect.squareup.com/v2
+    description: Production
+  - url: https://connect.squareupsandbox.com/v2
+    description: Sandbox
+security:
+  - BearerAuth: []
+  - OAuth2: []
+tags:
+  - name: Payments
+    description: Process and manage payments
+  - name: Orders
+    description: Create and manage orders
+  - name: Catalog
+    description: Manage product catalog
+  - name: Customers
+    description: Customer management and engagement
+  - name: Merchants
+    description: Merchant and location data
+paths:
+  /payments:
+    get:
+      operationId: list-payments
+      summary: Block Square List Payments
+      description: Retrieves a list of payments taken by the account making the request.
+      tags:
+        - Payments
+      parameters:
+        - name: begin_time
+          in: query
+          schema:
+            type: string
+            format: date-time
+          description: The start of the time range to retrieve payments for.
+        - name: end_time
+          in: query
+          schema:
+            type: string
+            format: date-time
+          description: The end of the time range to retrieve payments for.
+        - name: cursor
+          in: query
+          schema:
+            type: string
+          description: A pagination cursor returned by a previous call.
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            maximum: 100
+          description: The maximum number of results to be returned.
+        - name: location_id
+          in: query
+          schema:
+            type: string
+          description: Limit results to the location supplied.
+      responses:
+        '200':
+          description: List of payments retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPaymentsResponse'
+              examples:
+                list-payments:
+                  summary: List of payments
+                  value:
+                    payments:
+                      - id: GQTFp1ZlXdpoW4o6eGiZhbjosiDFf
+                        status: COMPLETED
+                        source_type: CARD
+                        amount_money:
+                          amount: 1500
+                          currency: USD
+                        total_money:
+                          amount: 1500
+                          currency: USD
+                        created_at: "2026-01-15T10:00:00Z"
+                        updated_at: "2026-01-15T10:00:05Z"
+                        location_id: L1234567890
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 50
+        dispatcher: FALLBACK
+    post:
+      operationId: create-payment
+      summary: Block Square Create Payment
+      description: Creates a payment using the provided source.
+      tags:
+        - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentRequest'
+            examples:
+              create-payment:
+                summary: Card payment request
+                value:
+                  source_id: cnon:card-nonce-ok
+                  idempotency_key: 7b0f3ec5-086a-4871-8f13-3c81b3875218
+                  amount_money:
+                    amount: 1500
+                    currency: USD
+                  location_id: L1234567890
+                x-microcks-default: true
+      responses:
+        '200':
+          description: Payment created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentResponse'
+              examples:
+                created-payment:
+                  summary: Created payment
+                  value:
+                    payment:
+                      id: GQTFp1ZlXdpoW4o6eGiZhbjosiDFf
+                      status: COMPLETED
+                      source_type: CARD
+                      amount_money:
+                        amount: 1500
+                        currency: USD
+                      total_money:
+                        amount: 1500
+                        currency: USD
+                      created_at: "2026-01-15T10:00:00Z"
+                      updated_at: "2026-01-15T10:00:05Z"
+                      location_id: L1234567890
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 100
+        dispatcher: SCRIPT
+  /payments/{payment_id}:
+    get:
+      operationId: get-payment
+      summary: Block Square Get Payment
+      description: Retrieves details for a specific payment.
+      tags:
+        - Payments
+      parameters:
+        - name: payment_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: A unique ID for the desired payment.
+      responses:
+        '200':
+          description: Payment retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPaymentResponse'
+              examples:
+                get-payment:
+                  summary: Payment details
+                  value:
+                    payment:
+                      id: GQTFp1ZlXdpoW4o6eGiZhbjosiDFf
+                      status: COMPLETED
+                      source_type: CARD
+                      amount_money:
+                        amount: 1500
+                        currency: USD
+                      total_money:
+                        amount: 1500
+                        currency: USD
+                      created_at: "2026-01-15T10:00:00Z"
+                      updated_at: "2026-01-15T10:00:05Z"
+                      location_id: L1234567890
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 50
+        dispatcher: URI_PARTS
+        dispatcherRules: payment_id
+  /orders:
+    post:
+      operationId: create-order
+      summary: Block Square Create Order
+      description: Creates a new order that can include information on products for purchase.
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderRequest'
+            examples:
+              create-order:
+                summary: Order with line items
+                value:
+                  idempotency_key: 8193148c-9586-11e6-99f9-28cfe91d33d5
+                  order:
+                    location_id: L1234567890
+                    line_items:
+                      - name: New York Strip Steak
+                        quantity: "1"
+                        base_price_money:
+                          amount: 3000
+                          currency: USD
+                x-microcks-default: true
+      responses:
+        '200':
+          description: Order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOrderResponse'
+              examples:
+                created-order:
+                  summary: Created order
+                  value:
+                    order:
+                      id: CAISENgvlJ6jLWAzERDzjyHVybY
+                      location_id: L1234567890
+                      state: OPEN
+                      version: 1
+                      total_money:
+                        amount: 3000
+                        currency: USD
+                      created_at: "2026-01-15T10:05:00Z"
+                      updated_at: "2026-01-15T10:05:00Z"
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 100
+        dispatcher: SCRIPT
+  /catalog/list:
+    get:
+      operationId: list-catalog
+      summary: Block Square List Catalog
+      description: Returns a list of all CatalogObjects of the specified types in the catalog.
+      tags:
+        - Catalog
+      parameters:
+        - name: types
+          in: query
+          schema:
+            type: string
+          description: Comma-separated list of CatalogObject types to return.
+        - name: cursor
+          in: query
+          schema:
+            type: string
+          description: Pagination cursor.
+      responses:
+        '200':
+          description: Catalog items retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCatalogResponse'
+              examples:
+                list-catalog:
+                  summary: Catalog items
+                  value:
+                    objects:
+                      - type: ITEM
+                        id: RYOIMONN5KRSWHVY7TNKH
+                        version: 1554399346626
+                        item_data:
+                          name: Caramel Macchiato
+                          description: Hot or iced espresso beverage
+                          variations:
+                            - type: ITEM_VARIATION
+                              id: OTYDX45SPG7LJQUVSPOEH6AQ
+                              item_variation_data:
+                                name: Regular
+                                price_money:
+                                  amount: 550
+                                  currency: USD
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 50
+        dispatcher: FALLBACK
+  /customers:
+    get:
+      operationId: list-customers
+      summary: Block Square List Customers
+      description: Lists customer profiles associated with a Square account.
+      tags:
+        - Customers
+      parameters:
+        - name: cursor
+          in: query
+          schema:
+            type: string
+          description: Pagination cursor.
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            maximum: 100
+          description: Maximum number of results to return.
+      responses:
+        '200':
+          description: Customers retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCustomersResponse'
+              examples:
+                list-customers:
+                  summary: List of customers
+                  value:
+                    customers:
+                      - id: JDKYHBWT1D4F8MFH63DBMEN8Y4
+                        given_name: Amelia
+                        family_name: Earhart
+                        email_address: Amelia.Earhart@example.com
+                        phone_number: "+11234567890"
+                        created_at: "2016-03-23T20:21:54.859Z"
+                        updated_at: "2016-03-23T20:21:55Z"
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 50
+        dispatcher: FALLBACK
+    post:
+      operationId: create-customer
+      summary: Block Square Create Customer
+      description: Creates a new customer for a business.
+      tags:
+        - Customers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerRequest'
+            examples:
+              create-customer:
+                summary: New customer
+                value:
+                  idempotency_key: 916f88d4-ba1d-11ea-b3de-0242ac130004
+                  given_name: Amelia
+                  family_name: Earhart
+                  email_address: Amelia.Earhart@example.com
+                  phone_number: "+11234567890"
+                x-microcks-default: true
+      responses:
+        '200':
+          description: Customer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCustomerResponse'
+              examples:
+                created-customer:
+                  summary: Created customer
+                  value:
+                    customer:
+                      id: JDKYHBWT1D4F8MFH63DBMEN8Y4
+                      given_name: Amelia
+                      family_name: Earhart
+                      email_address: Amelia.Earhart@example.com
+                      phone_number: "+11234567890"
+                      created_at: "2016-03-23T20:21:54.859Z"
+                      updated_at: "2016-03-23T20:21:55Z"
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 100
+        dispatcher: SCRIPT
+  /locations:
+    get:
+      operationId: list-locations
+      summary: Block Square List Locations
+      description: Provides details about all of the seller's locations, including those with an inactive status.
+      tags:
+        - Merchants
+      responses:
+        '200':
+          description: Locations retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListLocationsResponse'
+              examples:
+                list-locations:
+                  summary: Seller locations
+                  value:
+                    locations:
+                      - id: L1234567890
+                        name: Main Street Store
+                        address:
+                          address_line_1: 1234 Main St
+                          locality: San Francisco
+                          administrative_district_level_1: CA
+                          postal_code: "94105"
+                          country: US
+                        timezone: America/Los_Angeles
+                        currency: USD
+                        status: ACTIVE
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 50
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Personal access token for Square API
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://connect.squareup.com/oauth2/authorize
+          tokenUrl: https://connect.squareup.com/oauth2/token
+          scopes:
+            PAYMENTS_READ: Read payments
+            PAYMENTS_WRITE: Write payments
+            ORDERS_READ: Read orders
+            ORDERS_WRITE: Write orders
+            CUSTOMERS_READ: Read customers
+            CUSTOMERS_WRITE: Write customers
+  schemas:
+    Money:
+      type: object
+      description: Represents an amount of money in a specific currency.
+      properties:
+        amount:
+          type: integer
+          description: Amount in the smallest denomination of the currency.
+          example: 1500
+        currency:
+          type: string
+          description: 3-letter ISO 4217 currency code.
+          example: USD
+    Payment:
+      type: object
+      description: Represents a payment processed by Square.
+      properties:
+        id:
+          type: string
+          description: Unique ID for this payment.
+          example: GQTFp1ZlXdpoW4o6eGiZhbjosiDFf
+        status:
+          type: string
+          description: Indicates whether the payment is APPROVED, COMPLETED, CANCELED, or FAILED.
+          example: COMPLETED
+        source_type:
+          type: string
+          description: The source type for this payment (e.g., CARD, CASH, BANK_ACCOUNT).
+          example: CARD
+        amount_money:
+          $ref: '#/components/schemas/Money'
+        total_money:
+          $ref: '#/components/schemas/Money'
+        location_id:
+          type: string
+          description: The ID of the location associated with the payment.
+          example: L1234567890
+        created_at:
+          type: string
+          format: date-time
+          description: The timestamp of when the payment was created.
+          example: "2026-01-15T10:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          description: The timestamp of when the payment was last updated.
+          example: "2026-01-15T10:00:05Z"
+    Order:
+      type: object
+      description: Represents an order for products and services.
+      properties:
+        id:
+          type: string
+          description: Unique ID for this order.
+          example: CAISENgvlJ6jLWAzERDzjyHVybY
+        location_id:
+          type: string
+          description: The ID of the seller location that this order is associated with.
+          example: L1234567890
+        state:
+          type: string
+          description: Current state of the order (OPEN, COMPLETED, CANCELED, DRAFT).
+          example: OPEN
+        version:
+          type: integer
+          description: Version number to enable optimistic concurrency control.
+          example: 1
+        total_money:
+          $ref: '#/components/schemas/Money'
+        created_at:
+          type: string
+          format: date-time
+          example: "2026-01-15T10:05:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2026-01-15T10:05:00Z"
+    CatalogObject:
+      type: object
+      description: The wrapper object for the catalog entries of a given object type.
+      properties:
+        type:
+          type: string
+          description: The type of this object (ITEM, ITEM_VARIATION, CATEGORY, etc.).
+          example: ITEM
+        id:
+          type: string
+          description: Unique ID for this CatalogObject.
+          example: RYOIMONN5KRSWHVY7TNKH
+        version:
+          type: integer
+          description: The version of the object, used for optimistic concurrency control.
+          example: 1554399346626
+        item_data:
+          type: object
+          description: Structured data for a CatalogItem.
+          properties:
+            name:
+              type: string
+              example: Caramel Macchiato
+            description:
+              type: string
+              example: Hot or iced espresso beverage
+    Customer:
+      type: object
+      description: Represents a customer profile in a Square seller account.
+      properties:
+        id:
+          type: string
+          description: Unique ID for this customer.
+          example: JDKYHBWT1D4F8MFH63DBMEN8Y4
+        given_name:
+          type: string
+          description: Customer's first name.
+          example: Amelia
+        family_name:
+          type: string
+          description: Customer's last name.
+          example: Earhart
+        email_address:
+          type: string
+          format: email
+          description: Customer's email address.
+          example: Amelia.Earhart@example.com
+        phone_number:
+          type: string
+          description: Customer's phone number.
+          example: "+11234567890"
+        created_at:
+          type: string
+          format: date-time
+          example: "2016-03-23T20:21:54.859Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2016-03-23T20:21:55Z"
+    Location:
+      type: object
+      description: Represents one of a business's seller locations.
+      properties:
+        id:
+          type: string
+          description: Unique ID for this location.
+          example: L1234567890
+        name:
+          type: string
+          description: The business name of the location.
+          example: Main Street Store
+        timezone:
+          type: string
+          description: IANA timezone database identifier for the location.
+          example: America/Los_Angeles
+        currency:
+          type: string
+          description: The ISO 4217 currency code associated with this location.
+          example: USD
+        status:
+          type: string
+          description: The status of the location (ACTIVE, INACTIVE).
+          example: ACTIVE
+    ListPaymentsResponse:
+      type: object
+      properties:
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payment'
+        cursor:
+          type: string
+          description: Pagination cursor for next page.
+    CreatePaymentRequest:
+      type: object
+      required:
+        - source_id
+        - idempotency_key
+        - amount_money
+      properties:
+        source_id:
+          type: string
+          description: Payment source (card nonce, token, etc.).
+          example: cnon:card-nonce-ok
+        idempotency_key:
+          type: string
+          description: Unique key to ensure idempotency.
+          example: 7b0f3ec5-086a-4871-8f13-3c81b3875218
+        amount_money:
+          $ref: '#/components/schemas/Money'
+        location_id:
+          type: string
+          description: ID of the accepting location.
+          example: L1234567890
+    CreatePaymentResponse:
+      type: object
+      properties:
+        payment:
+          $ref: '#/components/schemas/Payment'
+    GetPaymentResponse:
+      type: object
+      properties:
+        payment:
+          $ref: '#/components/schemas/Payment'
+    CreateOrderRequest:
+      type: object
+      required:
+        - order
+      properties:
+        idempotency_key:
+          type: string
+          example: 8193148c-9586-11e6-99f9-28cfe91d33d5
+        order:
+          $ref: '#/components/schemas/Order'
+    CreateOrderResponse:
+      type: object
+      properties:
+        order:
+          $ref: '#/components/schemas/Order'
+    ListCatalogResponse:
+      type: object
+      properties:
+        objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/CatalogObject'
+        cursor:
+          type: string
+    ListCustomersResponse:
+      type: object
+      properties:
+        customers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+        cursor:
+          type: string
+    CreateCustomerRequest:
+      type: object
+      properties:
+        idempotency_key:
+          type: string
+          example: 916f88d4-ba1d-11ea-b3de-0242ac130004
+        given_name:
+          type: string
+          example: Amelia
+        family_name:
+          type: string
+          example: Earhart
+        email_address:
+          type: string
+          format: email
+          example: Amelia.Earhart@example.com
+        phone_number:
+          type: string
+          example: "+11234567890"
+    CreateCustomerResponse:
+      type: object
+      properties:
+        customer:
+          $ref: '#/components/schemas/Customer'
+    ListLocationsResponse:
+      type: object
+      properties:
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+x-generated-from: documentation
+x-source-url: https://developer.squareup.com/reference/square

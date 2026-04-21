@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/block/main/json-schema/block-customer-schema.json",
+  "title": "Customer",
+  "description": "Represents a customer profile in a Square seller account.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique ID for this customer.",
+      "example": "JDKYHBWT1D4F8MFH63DBMEN8Y4"
+    },
+    "given_name": {
+      "type": "string",
+      "description": "Customer's first name.",
+      "example": "Amelia"
+    },
+    "family_name": {
+      "type": "string",
+      "description": "Customer's last name.",
+      "example": "Earhart"
+    },
+    "email_address": {
+      "type": "string",
+      "format": "email",
+      "description": "Customer's email address.",
+      "example": "Amelia.Earhart@example.com"
+    },
+    "phone_number": {
+      "type": "string",
+      "description": "Customer's phone number.",
+      "example": "+11234567890"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2016-03-23T20:21:54.859Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2016-03-23T20:21:55Z"
+    }
+  }
+}

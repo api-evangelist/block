@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/block/main/json-schema/block-order-schema.json",
+  "title": "Order",
+  "description": "Represents an order for products and services.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique ID for this order.",
+      "example": "CAISENgvlJ6jLWAzERDzjyHVybY"
+    },
+    "location_id": {
+      "type": "string",
+      "description": "The ID of the seller location that this order is associated with.",
+      "example": "L1234567890"
+    },
+    "state": {
+      "type": "string",
+      "description": "Current state of the order.",
+      "enum": ["OPEN", "COMPLETED", "CANCELED", "DRAFT"],
+      "example": "OPEN"
+    },
+    "version": {
+      "type": "integer",
+      "description": "Version number for optimistic concurrency control.",
+      "example": 1
+    },
+    "total_money": {
+      "type": "object",
+      "description": "Total amount for the order.",
+      "properties": {
+        "amount": { "type": "integer", "example": 3000 },
+        "currency": { "type": "string", "example": "USD" }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:05:00Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:05:00Z"
+    }
+  }
+}

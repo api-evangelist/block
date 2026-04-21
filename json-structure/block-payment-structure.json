@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/block/main/json-structure/block-payment-structure.json",
+  "title": "Payment",
+  "description": "Represents a payment processed by Square.",
+  "type": "object",
+  "members": [
+    { "name": "id", "type": "string", "description": "Unique ID for this payment." },
+    { "name": "status", "type": "string", "description": "Payment status: APPROVED, COMPLETED, CANCELED, or FAILED." },
+    { "name": "source_type", "type": "string", "description": "Payment source type (CARD, CASH, etc.)." },
+    { "name": "amount_money", "type": "object", "description": "Amount charged for the payment." },
+    { "name": "total_money", "type": "object", "description": "Total amount including fees." },
+    { "name": "location_id", "type": "string", "description": "ID of the accepting location." },
+    { "name": "created_at", "type": "string", "description": "Timestamp when payment was created." },
+    { "name": "updated_at", "type": "string", "description": "Timestamp when payment was last updated." }
+  ]
+}

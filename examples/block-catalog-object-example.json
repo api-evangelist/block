@@ -1,0 +1,47 @@
+{
+  "type": "ITEM",
+  "id": "RYOIMONN5KRSWHVY7TNKH",
+  "version": 1554399346626,
+  "is_deleted": false,
+  "item_data": {
+    "name": "Caramel Macchiato",
+    "description": "Hot or iced espresso beverage with vanilla syrup and caramel drizzle",
+    "abbreviation": "CARA MAC",
+    "label_color": "593C00",
+    "available_online": true,
+    "available_for_pickup": true,
+    "category_id": "BJNQCF2FJ6S6UIDT65ABHLDC",
+    "variations": [
+      {
+        "type": "ITEM_VARIATION",
+        "id": "OTYDX45SPG7LJQUVSPOEH6AQ",
+        "version": 1554399346626,
+        "item_variation_data": {
+          "item_id": "RYOIMONN5KRSWHVY7TNKH",
+          "name": "Regular",
+          "sku": "CARAMAC-12",
+          "pricing_type": "FIXED_PRICING",
+          "price_money": {
+            "amount": 550,
+            "currency": "USD"
+          }
+        }
+      },
+      {
+        "type": "ITEM_VARIATION",
+        "id": "PMFE3JXS58YVMO3KJG57QQHM",
+        "version": 1554399346626,
+        "item_variation_data": {
+          "item_id": "RYOIMONN5KRSWHVY7TNKH",
+          "name": "Large",
+          "sku": "CARAMAC-16",
+          "pricing_type": "FIXED_PRICING",
+          "price_money": {
+            "amount": 650,
+            "currency": "USD"
+          }
+        }
+      }
+    ]
+  }
+}

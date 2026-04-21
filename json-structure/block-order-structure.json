@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/block/main/json-structure/block-order-structure.json",
+  "title": "Order",
+  "description": "Represents an order for products and services.",
+  "type": "object",
+  "members": [
+    { "name": "id", "type": "string", "description": "Unique ID for this order." },
+    { "name": "location_id", "type": "string", "description": "Seller location ID associated with the order." },
+    { "name": "state", "type": "string", "description": "Current state: OPEN, COMPLETED, CANCELED, DRAFT." },
+    { "name": "version", "type": "integer", "description": "Version for optimistic concurrency control." },
+    { "name": "total_money", "type": "object", "description": "Total amount for the order." },
+    { "name": "created_at", "type": "string", "description": "Timestamp when order was created." },
+    { "name": "updated_at", "type": "string", "description": "Timestamp when order was last updated." }
+  ]
+}

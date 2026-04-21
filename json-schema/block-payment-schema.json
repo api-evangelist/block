@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/block/main/json-schema/block-payment-schema.json",
+  "title": "Payment",
+  "description": "Represents a payment processed by Square.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique ID for this payment.",
+      "example": "GQTFp1ZlXdpoW4o6eGiZhbjosiDFf"
+    },
+    "status": {
+      "type": "string",
+      "description": "Indicates whether the payment is APPROVED, COMPLETED, CANCELED, or FAILED.",
+      "enum": ["APPROVED", "COMPLETED", "CANCELED", "FAILED"],
+      "example": "COMPLETED"
+    },
+    "source_type": {
+      "type": "string",
+      "description": "The source type for this payment.",
+      "example": "CARD"
+    },
+    "amount_money": {
+      "$ref": "#/$defs/Money"
+    },
+    "total_money": {
+      "$ref": "#/$defs/Money"
+    },
+    "location_id": {
+      "type": "string",
+      "description": "The ID of the location associated with the payment.",
+      "example": "L1234567890"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The timestamp of when the payment was created.",
+      "example": "2026-01-15T10:00:00Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The timestamp of when the payment was last updated.",
+      "example": "2026-01-15T10:00:05Z"
+    }
+  },
+  "$defs": {
+    "Money": {
+      "type": "object",
+      "description": "Represents an amount of money in a specific currency.",
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "description": "Amount in the smallest denomination of the currency.",
+          "example": 1500
+        },
+        "currency": {
+          "type": "string",
+          "description": "3-letter ISO 4217 currency code.",
+          "example": "USD"
+        }
+      }
+    }
+  }
+}
