@@ -1,0 +1,120 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Square API — Customers
+  description: 'Square API — Customers. 2 operations. Lead operation: Block Square List Customers. Self-contained Naftiko
+    capability covering one Block business surface.'
+  tags:
+  - Block
+  - Customers
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BLOCK_API_KEY: BLOCK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: square-customers
+    baseUri: https://connect.squareup.com/v2
+    description: Square API — Customers business capability. Self-contained, no shared references.
+    resources:
+    - name: customers
+      path: /customers
+      operations:
+      - name: listcustomers
+        method: GET
+        description: Block Square List Customers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: cursor
+          in: query
+          type: string
+          description: Pagination cursor.
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of results to return.
+      - name: createcustomer
+        method: POST
+        description: Block Square Create Customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.BLOCK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: square-customers-rest
+    port: 8080
+    description: REST adapter for Square API — Customers. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/customers
+      name: customers
+      description: REST surface for customers.
+      operations:
+      - method: GET
+        name: listcustomers
+        description: Block Square List Customers
+        call: square-customers.listcustomers
+        with:
+          cursor: rest.cursor
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcustomer
+        description: Block Square Create Customer
+        call: square-customers.createcustomer
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: square-customers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Square API — Customers. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: block-square-list-customers
+      description: Block Square List Customers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: square-customers.listcustomers
+      with:
+        cursor: tools.cursor
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: block-square-create-customer
+      description: Block Square Create Customer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: square-customers.createcustomer
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

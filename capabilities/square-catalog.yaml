@@ -1,0 +1,85 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Square API — Catalog
+  description: 'Square API — Catalog. 1 operations. Lead operation: Block Square List Catalog. Self-contained Naftiko capability
+    covering one Block business surface.'
+  tags:
+  - Block
+  - Catalog
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BLOCK_API_KEY: BLOCK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: square-catalog
+    baseUri: https://connect.squareup.com/v2
+    description: Square API — Catalog business capability. Self-contained, no shared references.
+    resources:
+    - name: catalog-list
+      path: /catalog/list
+      operations:
+      - name: listcatalog
+        method: GET
+        description: Block Square List Catalog
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: types
+          in: query
+          type: string
+          description: Comma-separated list of CatalogObject types to return.
+        - name: cursor
+          in: query
+          type: string
+          description: Pagination cursor.
+    authentication:
+      type: bearer
+      token: '{{env.BLOCK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: square-catalog-rest
+    port: 8080
+    description: REST adapter for Square API — Catalog. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/catalog/list
+      name: catalog-list
+      description: REST surface for catalog-list.
+      operations:
+      - method: GET
+        name: listcatalog
+        description: Block Square List Catalog
+        call: square-catalog.listcatalog
+        with:
+          types: rest.types
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: square-catalog-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Square API — Catalog. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: block-square-list-catalog
+      description: Block Square List Catalog
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: square-catalog.listcatalog
+      with:
+        types: tools.types
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.
