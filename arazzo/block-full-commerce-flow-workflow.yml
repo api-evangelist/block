@@ -1,0 +1,173 @@
+arazzo: 1.0.1
+info:
+  title: Block Square Full Commerce Flow
+  summary: Resolve a location, create a customer, place an order, take payment, and verify it.
+  description: >-
+    The complete Square commerce loop in one flow. The workflow resolves the
+    seller location, creates a customer, opens an order, charges payment for the
+    order total, and reads the payment back to confirm settlement. Each step
+    inlines its bearer token and request body, including every idempotency key
+    Square requires on writes.
+  version: 1.0.0
+sourceDescriptions:
+- name: squareApi
+  url: ../openapi/block-square-api-openapi.yaml
+  type: openapi
+workflows:
+- workflowId: full-commerce-flow
+  summary: Location, customer, order, payment, and payment verification end to end.
+  description: >-
+    Lists locations and uses the first one to create a customer, open an order
+    with the supplied line items, charge the supplied source for the order
+    amount, and finally re-read the payment to confirm its settled status.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - givenName
+    - familyName
+    - emailAddress
+    - lineItems
+    - sourceId
+    - amount
+    properties:
+      accessToken:
+        type: string
+        description: Square access token presented as a Bearer credential.
+      givenName:
+        type: string
+        description: The customer's first name.
+      familyName:
+        type: string
+        description: The customer's last name.
+      emailAddress:
+        type: string
+        description: The customer's email address.
+      lineItems:
+        type: array
+        description: Order line items, each with a name, quantity, and base_price_money.
+        items:
+          type: object
+      sourceId:
+        type: string
+        description: The payment source id (card nonce or token) to charge.
+      amount:
+        type: integer
+        description: The amount to charge in the smallest currency denomination.
+      currency:
+        type: string
+        description: The ISO 4217 currency code for the charge.
+        default: USD
+      customerIdempotencyKey:
+        type: string
+        description: Idempotency key for the create-customer request.
+      orderIdempotencyKey:
+        type: string
+        description: Idempotency key for the create-order request.
+      paymentIdempotencyKey:
+        type: string
+        description: Idempotency key for the create-payment request.
+  steps:
+  - stepId: listLocations
+    description: List the seller's locations and select the first for the sale.
+    operationId: list-locations
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      locationId: $response.body#/locations/0/id
+  - stepId: createCustomer
+    description: Create the customer profile the order and payment are attributed to.
+    operationId: create-customer
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        idempotency_key: $inputs.customerIdempotencyKey
+        given_name: $inputs.givenName
+        family_name: $inputs.familyName
+        email_address: $inputs.emailAddress
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      customerId: $response.body#/customer/id
+  - stepId: createOrder
+    description: Open an order at the resolved location with the supplied line items.
+    operationId: create-order
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        idempotency_key: $inputs.orderIdempotencyKey
+        order:
+          location_id: $steps.listLocations.outputs.locationId
+          line_items: $inputs.lineItems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderId: $response.body#/order/id
+      orderTotal: $response.body#/order/total_money
+  - stepId: createPayment
+    description: Charge the supplied source for the order amount at the location.
+    operationId: create-payment
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        source_id: $inputs.sourceId
+        idempotency_key: $inputs.paymentIdempotencyKey
+        amount_money:
+          amount: $inputs.amount
+          currency: $inputs.currency
+        location_id: $steps.listLocations.outputs.locationId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      paymentId: $response.body#/payment/id
+      paymentStatus: $response.body#/payment/status
+  - stepId: verifyPayment
+    description: Read the created payment back by id to confirm its settled status.
+    operationId: get-payment
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: payment_id
+      in: path
+      value: $steps.createPayment.outputs.paymentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      verifiedStatus: $response.body#/payment/status
+      totalMoney: $response.body#/payment/total_money
+    onSuccess:
+    - name: settled
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.payment.status == "COMPLETED"
+        type: jsonpath
+    - name: notSettled
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.payment.status != "COMPLETED"
+        type: jsonpath
+  outputs:
+    locationId: $steps.listLocations.outputs.locationId
+    customerId: $steps.createCustomer.outputs.customerId
+    orderId: $steps.createOrder.outputs.orderId
+    paymentId: $steps.createPayment.outputs.paymentId
+    verifiedStatus: $steps.verifyPayment.outputs.verifiedStatus

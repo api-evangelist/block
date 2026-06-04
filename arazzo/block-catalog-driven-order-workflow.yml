@@ -1,0 +1,117 @@
+arazzo: 1.0.1
+info:
+  title: Block Square Catalog Driven Order
+  summary: Browse the catalog, build an order from a selected item, and capture payment.
+  description: >-
+    A catalog-to-checkout flow. The workflow lists catalog items, selects the
+    first ITEM to anchor the order, opens an order at the location with the
+    supplied line items, and charges the supplied payment source. Each step
+    inlines its bearer token and request body, including the idempotency keys
+    Square requires on the order and payment writes.
+  version: 1.0.0
+sourceDescriptions:
+- name: squareApi
+  url: ../openapi/block-square-api-openapi.yaml
+  type: openapi
+workflows:
+- workflowId: catalog-driven-order
+  summary: List catalog items, create an order, and take payment for it.
+  description: >-
+    Lists catalog ITEM objects, captures the first item for reference, creates an
+    order at the location with the supplied line items, and charges the supplied
+    source for the order amount.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - locationId
+    - lineItems
+    - sourceId
+    - amount
+    properties:
+      accessToken:
+        type: string
+        description: Square access token presented as a Bearer credential.
+      locationId:
+        type: string
+        description: The seller location the order and payment are associated with.
+      lineItems:
+        type: array
+        description: Order line items, each with a name, quantity, and base_price_money.
+        items:
+          type: object
+      sourceId:
+        type: string
+        description: The payment source id (card nonce or token) to charge.
+      amount:
+        type: integer
+        description: The amount to charge in the smallest currency denomination.
+      currency:
+        type: string
+        description: The ISO 4217 currency code for the charge.
+        default: USD
+      orderIdempotencyKey:
+        type: string
+        description: Idempotency key for the create-order request.
+      paymentIdempotencyKey:
+        type: string
+        description: Idempotency key for the create-payment request.
+  steps:
+  - stepId: listCatalog
+    description: List catalog ITEM objects to source the products for the order.
+    operationId: list-catalog
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: types
+      in: query
+      value: ITEM
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstItemId: $response.body#/objects/0/id
+      firstItemName: $response.body#/objects/0/item_data/name
+  - stepId: createOrder
+    description: Open an order at the seller location with the supplied line items.
+    operationId: create-order
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        idempotency_key: $inputs.orderIdempotencyKey
+        order:
+          location_id: $inputs.locationId
+          line_items: $inputs.lineItems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderId: $response.body#/order/id
+      orderTotal: $response.body#/order/total_money
+  - stepId: createPayment
+    description: Charge the supplied source for the order amount at the location.
+    operationId: create-payment
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        source_id: $inputs.sourceId
+        idempotency_key: $inputs.paymentIdempotencyKey
+        amount_money:
+          amount: $inputs.amount
+          currency: $inputs.currency
+        location_id: $inputs.locationId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      paymentId: $response.body#/payment/id
+  outputs:
+    firstItemId: $steps.listCatalog.outputs.firstItemId
+    orderId: $steps.createOrder.outputs.orderId
+    paymentId: $steps.createPayment.outputs.paymentId

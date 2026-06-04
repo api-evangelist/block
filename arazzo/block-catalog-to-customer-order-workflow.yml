@@ -1,0 +1,115 @@
+arazzo: 1.0.1
+info:
+  title: Block Square Catalog To Customer Order
+  summary: Browse the catalog, create a customer, and open an order for them.
+  description: >-
+    A discovery-to-order flow that stops short of payment. The workflow lists
+    catalog items, creates a customer profile, and opens an order at the seller
+    location with the supplied line items. Each step inlines its bearer token and
+    request body, including the idempotency keys Square requires on the customer
+    and order writes.
+  version: 1.0.0
+sourceDescriptions:
+- name: squareApi
+  url: ../openapi/block-square-api-openapi.yaml
+  type: openapi
+workflows:
+- workflowId: catalog-to-customer-order
+  summary: List catalog items, create a customer, and create an order for them.
+  description: >-
+    Lists catalog ITEM objects, creates a new customer profile, and opens an
+    order at the location with the supplied line items, returning the order in
+    its initial OPEN state for later payment.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - locationId
+    - givenName
+    - familyName
+    - emailAddress
+    - lineItems
+    properties:
+      accessToken:
+        type: string
+        description: Square access token presented as a Bearer credential.
+      locationId:
+        type: string
+        description: The seller location the order is associated with.
+      givenName:
+        type: string
+        description: The customer's first name.
+      familyName:
+        type: string
+        description: The customer's last name.
+      emailAddress:
+        type: string
+        description: The customer's email address.
+      lineItems:
+        type: array
+        description: Order line items, each with a name, quantity, and base_price_money.
+        items:
+          type: object
+      customerIdempotencyKey:
+        type: string
+        description: Idempotency key for the create-customer request.
+      orderIdempotencyKey:
+        type: string
+        description: Idempotency key for the create-order request.
+  steps:
+  - stepId: listCatalog
+    description: List catalog ITEM objects to source the products for the order.
+    operationId: list-catalog
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: types
+      in: query
+      value: ITEM
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstItemId: $response.body#/objects/0/id
+      firstItemName: $response.body#/objects/0/item_data/name
+  - stepId: createCustomer
+    description: Create the customer profile the order will be attributed to.
+    operationId: create-customer
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        idempotency_key: $inputs.customerIdempotencyKey
+        given_name: $inputs.givenName
+        family_name: $inputs.familyName
+        email_address: $inputs.emailAddress
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      customerId: $response.body#/customer/id
+  - stepId: createOrder
+    description: Open an order at the seller location with the supplied line items.
+    operationId: create-order
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        idempotency_key: $inputs.orderIdempotencyKey
+        order:
+          location_id: $inputs.locationId
+          line_items: $inputs.lineItems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderId: $response.body#/order/id
+      orderState: $response.body#/order/state
+  outputs:
+    firstItemId: $steps.listCatalog.outputs.firstItemId
+    customerId: $steps.createCustomer.outputs.customerId
+    orderId: $steps.createOrder.outputs.orderId

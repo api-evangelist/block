@@ -1,0 +1,117 @@
+arazzo: 1.0.1
+info:
+  title: Block Square Customer Order Then Pay
+  summary: Create an order, branch on its state, and only take payment when it is OPEN.
+  description: >-
+    An order-gated payment flow. The workflow opens an order at the location and
+    branches on the returned order state: when the order is OPEN it proceeds to
+    charge payment, and otherwise it ends without charging. Each step inlines its
+    bearer token and request body, including the idempotency keys Square requires
+    on the order and payment writes.
+  version: 1.0.0
+sourceDescriptions:
+- name: squareApi
+  url: ../openapi/block-square-api-openapi.yaml
+  type: openapi
+workflows:
+- workflowId: customer-order-then-pay
+  summary: Create an order, then take payment only if the order is OPEN.
+  description: >-
+    Opens an order at the location with the supplied line items and branches on
+    its state, charging the supplied source for the supplied amount only when the
+    order is OPEN.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - locationId
+    - lineItems
+    - sourceId
+    - amount
+    properties:
+      accessToken:
+        type: string
+        description: Square access token presented as a Bearer credential.
+      locationId:
+        type: string
+        description: The seller location the order and payment are associated with.
+      lineItems:
+        type: array
+        description: Order line items, each with a name, quantity, and base_price_money.
+        items:
+          type: object
+      sourceId:
+        type: string
+        description: The payment source id (card nonce or token) to charge.
+      amount:
+        type: integer
+        description: The amount to charge in the smallest currency denomination.
+      currency:
+        type: string
+        description: The ISO 4217 currency code for the charge.
+        default: USD
+      orderIdempotencyKey:
+        type: string
+        description: Idempotency key for the create-order request.
+      paymentIdempotencyKey:
+        type: string
+        description: Idempotency key for the create-payment request.
+  steps:
+  - stepId: createOrder
+    description: Open an order with the supplied line items and branch on its state.
+    operationId: create-order
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        idempotency_key: $inputs.orderIdempotencyKey
+        order:
+          location_id: $inputs.locationId
+          line_items: $inputs.lineItems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderId: $response.body#/order/id
+      orderState: $response.body#/order/state
+    onSuccess:
+    - name: orderOpen
+      type: goto
+      stepId: createPayment
+      criteria:
+      - context: $response.body
+        condition: $.order.state == "OPEN"
+        type: jsonpath
+    - name: orderNotOpen
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.order.state != "OPEN"
+        type: jsonpath
+  - stepId: createPayment
+    description: Charge the supplied source for the amount at the location.
+    operationId: create-payment
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        source_id: $inputs.sourceId
+        idempotency_key: $inputs.paymentIdempotencyKey
+        amount_money:
+          amount: $inputs.amount
+          currency: $inputs.currency
+        location_id: $inputs.locationId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      paymentId: $response.body#/payment/id
+      paymentStatus: $response.body#/payment/status
+  outputs:
+    orderId: $steps.createOrder.outputs.orderId
+    orderState: $steps.createOrder.outputs.orderState
+    paymentId: $steps.createPayment.outputs.paymentId

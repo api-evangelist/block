@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: Block Square Reconcile Payment
+  summary: List recent payments for a location and pull full detail on the most recent one.
+  description: >-
+    A reconciliation lookup. The workflow lists payments within a time range for
+    a location and then branches: when at least one payment exists it reads the
+    most recent payment back in full, and when none exist it ends. Each step
+    inlines its bearer token and query parameters.
+  version: 1.0.0
+sourceDescriptions:
+- name: squareApi
+  url: ../openapi/block-square-api-openapi.yaml
+  type: openapi
+workflows:
+- workflowId: reconcile-payment
+  summary: List payments for a location, then fetch the most recent one in detail.
+  description: >-
+    Lists payments for a location within an optional time range and branches on
+    whether any were returned. When payments exist it retrieves the first
+    (most recent) payment by id to confirm its settled status and total.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - locationId
+    properties:
+      accessToken:
+        type: string
+        description: Square access token presented as a Bearer credential.
+      locationId:
+        type: string
+        description: The seller location to list payments for.
+      beginTime:
+        type: string
+        description: Start of the time range to retrieve payments for (RFC 3339).
+      endTime:
+        type: string
+        description: End of the time range to retrieve payments for (RFC 3339).
+      limit:
+        type: integer
+        description: Maximum number of payments to return (max 100).
+        default: 10
+  steps:
+  - stepId: listPayments
+    description: List payments for the location and branch on whether any exist.
+    operationId: list-payments
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: location_id
+      in: query
+      value: $inputs.locationId
+    - name: begin_time
+      in: query
+      value: $inputs.beginTime
+    - name: end_time
+      in: query
+      value: $inputs.endTime
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      latestPaymentId: $response.body#/payments/0/id
+    onSuccess:
+    - name: hasPayments
+      type: goto
+      stepId: getPayment
+      criteria:
+      - context: $response.body
+        condition: $.payments.length > 0
+        type: jsonpath
+    - name: noPayments
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.payments.length == 0
+        type: jsonpath
+  - stepId: getPayment
+    description: Retrieve the most recent payment by id to confirm its full detail.
+    operationId: get-payment
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: payment_id
+      in: path
+      value: $steps.listPayments.outputs.latestPaymentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      paymentStatus: $response.body#/payment/status
+      totalMoney: $response.body#/payment/total_money
+  outputs:
+    latestPaymentId: $steps.listPayments.outputs.latestPaymentId
+    paymentStatus: $steps.getPayment.outputs.paymentStatus

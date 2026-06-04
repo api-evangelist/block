@@ -1,0 +1,111 @@
+arazzo: 1.0.1
+info:
+  title: Block Square Location First Sale
+  summary: Resolve the active seller location, open an order there, and take payment.
+  description: >-
+    A location-aware checkout flow. The workflow lists the seller's locations,
+    selects the first one to anchor the sale, opens an order with the supplied
+    line items, and charges the supplied payment source for the order. Each step
+    inlines its bearer token and request body, including the idempotency keys
+    Square requires on the order and payment writes.
+  version: 1.0.0
+sourceDescriptions:
+- name: squareApi
+  url: ../openapi/block-square-api-openapi.yaml
+  type: openapi
+workflows:
+- workflowId: location-first-sale
+  summary: Discover a seller location, create an order, and capture payment for it.
+  description: >-
+    Lists locations, uses the first returned location to create an order with
+    the supplied line items, and then charges the supplied source for the order
+    amount at that location.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - lineItems
+    - sourceId
+    - amount
+    properties:
+      accessToken:
+        type: string
+        description: Square access token presented as a Bearer credential.
+      lineItems:
+        type: array
+        description: Order line items, each with a name, quantity, and base_price_money.
+        items:
+          type: object
+      sourceId:
+        type: string
+        description: The payment source id (card nonce or token) to charge.
+      amount:
+        type: integer
+        description: The amount to charge in the smallest currency denomination.
+      currency:
+        type: string
+        description: The ISO 4217 currency code for the charge.
+        default: USD
+      orderIdempotencyKey:
+        type: string
+        description: Idempotency key for the create-order request.
+      paymentIdempotencyKey:
+        type: string
+        description: Idempotency key for the create-payment request.
+  steps:
+  - stepId: listLocations
+    description: Retrieve the seller's locations and pick the first one for the sale.
+    operationId: list-locations
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      locationId: $response.body#/locations/0/id
+      locationCurrency: $response.body#/locations/0/currency
+  - stepId: createOrder
+    description: Open an order at the resolved location with the supplied line items.
+    operationId: create-order
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        idempotency_key: $inputs.orderIdempotencyKey
+        order:
+          location_id: $steps.listLocations.outputs.locationId
+          line_items: $inputs.lineItems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderId: $response.body#/order/id
+      orderTotal: $response.body#/order/total_money
+  - stepId: createPayment
+    description: Charge the supplied source for the order amount at the resolved location.
+    operationId: create-payment
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        source_id: $inputs.sourceId
+        idempotency_key: $inputs.paymentIdempotencyKey
+        amount_money:
+          amount: $inputs.amount
+          currency: $inputs.currency
+        location_id: $steps.listLocations.outputs.locationId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      paymentId: $response.body#/payment/id
+      paymentStatus: $response.body#/payment/status
+  outputs:
+    locationId: $steps.listLocations.outputs.locationId
+    orderId: $steps.createOrder.outputs.orderId
+    paymentId: $steps.createPayment.outputs.paymentId

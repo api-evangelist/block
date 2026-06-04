@@ -53,6 +53,48 @@ apis:
   - type: NaftikoCapability
     url: capabilities/square-payments.yaml
 common:
+- type: ArazzoWorkflows
+  url: arazzo/
+  workflows:
+  - url: arazzo/block-catalog-browse-and-order-verify-workflow.yml
+    name: Block Square Catalog Browse And Order Verify
+    summary: Browse catalog items, open an order, and branch on whether the order is OPEN.
+  - url: arazzo/block-catalog-driven-order-workflow.yml
+    name: Block Square Catalog Driven Order
+    summary: Browse the catalog, build an order from a selected item, and capture payment.
+  - url: arazzo/block-catalog-to-customer-order-workflow.yml
+    name: Block Square Catalog To Customer Order
+    summary: Browse the catalog, create a customer, and open an order for them.
+  - url: arazzo/block-customer-order-then-pay-workflow.yml
+    name: Block Square Customer Order Then Pay
+    summary: Create an order, branch on its state, and only take payment when it is OPEN.
+  - url: arazzo/block-customer-payment-audit-workflow.yml
+    name: Block Square Customer Payment Audit
+    summary: Pull a customer roster, list payments for a location, and detail the latest one.
+  - url: arazzo/block-full-commerce-flow-workflow.yml
+    name: Block Square Full Commerce Flow
+    summary: Resolve a location, create a customer, place an order, take payment, and verify it.
+  - url: arazzo/block-location-first-sale-workflow.yml
+    name: Block Square Location First Sale
+    summary: Resolve the active seller location, open an order there, and take payment.
+  - url: arazzo/block-location-payment-reconciliation-workflow.yml
+    name: Block Square Location Payment Reconciliation
+    summary: Resolve a location, list its recent payments, and detail the most recent one.
+  - url: arazzo/block-new-customer-checkout-workflow.yml
+    name: Block Square New Customer Checkout
+    summary: Create a customer, place an order for them, then capture payment for that order.
+  - url: arazzo/block-onboard-customer-and-charge-workflow.yml
+    name: Block Square Onboard Customer And Charge
+    summary: Resolve a location, create a customer, and charge a direct payment to them.
+  - url: arazzo/block-reconcile-payment-workflow.yml
+    name: Block Square Reconcile Payment
+    summary: List recent payments for a location and pull full detail on the most recent one.
+  - url: arazzo/block-returning-customer-checkout-workflow.yml
+    name: Block Square Returning Customer Checkout
+    summary: Find an existing customer or create one, then place and pay for their order.
+  - url: arazzo/block-take-payment-and-verify-workflow.yml
+    name: Block Square Take Payment And Verify
+    summary: Take a card payment and immediately re-read it to confirm the final status.
 - type: LinkedIn
   url: https://www.linkedin.com/company/joinblock
 - type: Website

@@ -1,0 +1,115 @@
+arazzo: 1.0.1
+info:
+  title: Block Square Onboard Customer And Charge
+  summary: Resolve a location, create a customer, and charge a direct payment to them.
+  description: >-
+    A direct-charge onboarding flow with no intermediate order. The workflow
+    lists the seller's locations, creates a customer profile, and charges the
+    supplied payment source against the resolved location. Each step inlines its
+    bearer token and request body, including the idempotency keys Square requires
+    on the customer and payment writes.
+  version: 1.0.0
+sourceDescriptions:
+- name: squareApi
+  url: ../openapi/block-square-api-openapi.yaml
+  type: openapi
+workflows:
+- workflowId: onboard-customer-and-charge
+  summary: List locations, create a customer, and take a direct payment.
+  description: >-
+    Lists locations and uses the first one to create a customer profile and then
+    charge the supplied source for the supplied amount at that location, without
+    creating an intervening order.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - givenName
+    - familyName
+    - emailAddress
+    - sourceId
+    - amount
+    properties:
+      accessToken:
+        type: string
+        description: Square access token presented as a Bearer credential.
+      givenName:
+        type: string
+        description: The customer's first name.
+      familyName:
+        type: string
+        description: The customer's last name.
+      emailAddress:
+        type: string
+        description: The customer's email address.
+      sourceId:
+        type: string
+        description: The payment source id (card nonce or token) to charge.
+      amount:
+        type: integer
+        description: The amount to charge in the smallest currency denomination.
+      currency:
+        type: string
+        description: The ISO 4217 currency code for the charge.
+        default: USD
+      customerIdempotencyKey:
+        type: string
+        description: Idempotency key for the create-customer request.
+      paymentIdempotencyKey:
+        type: string
+        description: Idempotency key for the create-payment request.
+  steps:
+  - stepId: listLocations
+    description: List the seller's locations and select the first for the charge.
+    operationId: list-locations
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      locationId: $response.body#/locations/0/id
+  - stepId: createCustomer
+    description: Create the customer profile the payment is attributed to.
+    operationId: create-customer
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        idempotency_key: $inputs.customerIdempotencyKey
+        given_name: $inputs.givenName
+        family_name: $inputs.familyName
+        email_address: $inputs.emailAddress
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      customerId: $response.body#/customer/id
+  - stepId: createPayment
+    description: Charge the supplied source for the amount at the resolved location.
+    operationId: create-payment
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        source_id: $inputs.sourceId
+        idempotency_key: $inputs.paymentIdempotencyKey
+        amount_money:
+          amount: $inputs.amount
+          currency: $inputs.currency
+        location_id: $steps.listLocations.outputs.locationId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      paymentId: $response.body#/payment/id
+      paymentStatus: $response.body#/payment/status
+  outputs:
+    locationId: $steps.listLocations.outputs.locationId
+    customerId: $steps.createCustomer.outputs.customerId
+    paymentId: $steps.createPayment.outputs.paymentId

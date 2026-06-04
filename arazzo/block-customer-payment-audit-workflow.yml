@@ -1,0 +1,108 @@
+arazzo: 1.0.1
+info:
+  title: Block Square Customer Payment Audit
+  summary: Pull a customer roster, list payments for a location, and detail the latest one.
+  description: >-
+    An audit walk that ties customers to recent payment activity. The workflow
+    lists customer profiles, lists recent payments for a location, and then reads
+    the most recent payment back in full when one exists. Each step inlines its
+    bearer token and query parameters so the audit can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: squareApi
+  url: ../openapi/block-square-api-openapi.yaml
+  type: openapi
+workflows:
+- workflowId: customer-payment-audit
+  summary: List customers, list payments, then detail the most recent payment.
+  description: >-
+    Lists customer profiles for context, lists recent payments for a location,
+    and branches on whether payments exist — retrieving the most recent payment
+    in full when one is present.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - locationId
+    properties:
+      accessToken:
+        type: string
+        description: Square access token presented as a Bearer credential.
+      locationId:
+        type: string
+        description: The seller location to list payments for.
+      customerLimit:
+        type: integer
+        description: Maximum number of customers to return (max 100).
+        default: 50
+      paymentLimit:
+        type: integer
+        description: Maximum number of payments to return (max 100).
+        default: 20
+  steps:
+  - stepId: listCustomers
+    description: List customer profiles to establish the audit roster.
+    operationId: list-customers
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: limit
+      in: query
+      value: $inputs.customerLimit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstCustomerId: $response.body#/customers/0/id
+      customersCursor: $response.body#/cursor
+  - stepId: listPayments
+    description: List recent payments for the location and branch on whether any exist.
+    operationId: list-payments
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: location_id
+      in: query
+      value: $inputs.locationId
+    - name: limit
+      in: query
+      value: $inputs.paymentLimit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      latestPaymentId: $response.body#/payments/0/id
+    onSuccess:
+    - name: hasPayments
+      type: goto
+      stepId: getPayment
+      criteria:
+      - context: $response.body
+        condition: $.payments.length > 0
+        type: jsonpath
+    - name: noPayments
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.payments.length == 0
+        type: jsonpath
+  - stepId: getPayment
+    description: Retrieve the most recent payment by id for the audit record.
+    operationId: get-payment
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: payment_id
+      in: path
+      value: $steps.listPayments.outputs.latestPaymentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      paymentStatus: $response.body#/payment/status
+      totalMoney: $response.body#/payment/total_money
+  outputs:
+    firstCustomerId: $steps.listCustomers.outputs.firstCustomerId
+    latestPaymentId: $steps.listPayments.outputs.latestPaymentId
+    paymentStatus: $steps.getPayment.outputs.paymentStatus

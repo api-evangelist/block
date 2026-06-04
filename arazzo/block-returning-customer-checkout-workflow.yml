@@ -1,0 +1,165 @@
+arazzo: 1.0.1
+info:
+  title: Block Square Returning Customer Checkout
+  summary: Find an existing customer or create one, then place and pay for their order.
+  description: >-
+    A get-or-create customer checkout. The workflow lists customers and branches:
+    when a customer already exists it reuses that profile, and when none is found
+    it creates a new one. Either way it then opens an order at the location and
+    captures payment. Each step inlines its bearer token and request body,
+    including the idempotency keys Square requires on writes.
+  version: 1.0.0
+sourceDescriptions:
+- name: squareApi
+  url: ../openapi/block-square-api-openapi.yaml
+  type: openapi
+workflows:
+- workflowId: returning-customer-checkout
+  summary: Reuse or create a customer, then create an order and take payment.
+  description: >-
+    Lists customers and branches on whether any profiles exist. If one exists it
+    is reused; otherwise a new customer is created. The flow then creates an
+    order at the location and charges the supplied source for the order amount.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - locationId
+    - givenName
+    - familyName
+    - emailAddress
+    - lineItems
+    - sourceId
+    - amount
+    properties:
+      accessToken:
+        type: string
+        description: Square access token presented as a Bearer credential.
+      locationId:
+        type: string
+        description: The seller location the order and payment are associated with.
+      givenName:
+        type: string
+        description: First name to use when creating a new customer.
+      familyName:
+        type: string
+        description: Last name to use when creating a new customer.
+      emailAddress:
+        type: string
+        description: Email address to use when creating a new customer.
+      lineItems:
+        type: array
+        description: Order line items, each with a name, quantity, and base_price_money.
+        items:
+          type: object
+      sourceId:
+        type: string
+        description: The payment source id (card nonce or token) to charge.
+      amount:
+        type: integer
+        description: The amount to charge in the smallest currency denomination.
+      currency:
+        type: string
+        description: The ISO 4217 currency code for the charge.
+        default: USD
+      customerIdempotencyKey:
+        type: string
+        description: Idempotency key for the create-customer request.
+      orderIdempotencyKey:
+        type: string
+        description: Idempotency key for the create-order request.
+      paymentIdempotencyKey:
+        type: string
+        description: Idempotency key for the create-payment request.
+  steps:
+  - stepId: findCustomer
+    description: List customers and branch on whether an existing profile is available.
+    operationId: list-customers
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      existingCustomerId: $response.body#/customers/0/id
+    onSuccess:
+    - name: customerExists
+      type: goto
+      stepId: createOrder
+      criteria:
+      - context: $response.body
+        condition: $.customers.length > 0
+        type: jsonpath
+    - name: customerMissing
+      type: goto
+      stepId: createCustomer
+      criteria:
+      - context: $response.body
+        condition: $.customers.length == 0
+        type: jsonpath
+  - stepId: createCustomer
+    description: Create a new customer profile when none was found.
+    operationId: create-customer
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        idempotency_key: $inputs.customerIdempotencyKey
+        given_name: $inputs.givenName
+        family_name: $inputs.familyName
+        email_address: $inputs.emailAddress
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      newCustomerId: $response.body#/customer/id
+  - stepId: createOrder
+    description: Open an order at the seller location with the supplied line items.
+    operationId: create-order
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        idempotency_key: $inputs.orderIdempotencyKey
+        order:
+          location_id: $inputs.locationId
+          line_items: $inputs.lineItems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderId: $response.body#/order/id
+  - stepId: createPayment
+    description: Charge the supplied source for the order amount at the location.
+    operationId: create-payment
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        source_id: $inputs.sourceId
+        idempotency_key: $inputs.paymentIdempotencyKey
+        amount_money:
+          amount: $inputs.amount
+          currency: $inputs.currency
+        location_id: $inputs.locationId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      paymentId: $response.body#/payment/id
+      paymentStatus: $response.body#/payment/status
+  outputs:
+    existingCustomerId: $steps.findCustomer.outputs.existingCustomerId
+    newCustomerId: $steps.createCustomer.outputs.newCustomerId
+    orderId: $steps.createOrder.outputs.orderId
+    paymentId: $steps.createPayment.outputs.paymentId
