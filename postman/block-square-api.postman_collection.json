@@ -1,0 +1,880 @@
+{
+  "info": {
+    "_postman_id": "9605af40-1829-4a97-910e-62409b0a4295",
+    "name": "Square API",
+    "description": "Square API provides payment processing, commerce, customer management, and business operations capabilities for sellers, developers, and merchants. Supports point-of-sale, ecommerce, invoicing, loyalty, gift cards, and more.\n\nContact Support:\n Name: Square Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:05:51.000Z",
+    "updatedAt": "2026-06-05T15:05:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9605af40-1829-4a97-910e-62409b0a4295"
+  },
+  "item": [
+    {
+      "name": "payments",
+      "item": [
+        {
+          "name": "{payment_id}",
+          "item": [
+            {
+              "name": "Block Square Get Payment",
+              "id": "c12d5e6a-6677-4e3a-9ec9-082a558ab3cd",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/payments/:payment_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    ":payment_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "cdb7ff97-f0e0-40b5-9016-869d952454e4",
+                      "key": "payment_id",
+                      "value": "<string>",
+                      "description": "(Required) A unique ID for the desired payment."
+                    }
+                  ]
+                },
+                "description": "Retrieves details for a specific payment."
+              },
+              "response": [
+                {
+                  "id": "ad07f8f4-67c0-4893-a7ca-0811997963ef",
+                  "name": "Payment retrieved successfully",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/:payment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        ":payment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "payment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"payment\": {\n    \"id\": \"<string>\",\n    \"status\": \"<string>\",\n    \"source_type\": \"<string>\",\n    \"amount_money\": {\n      \"amount\": \"<integer>\",\n      \"currency\": \"<string>\"\n    },\n    \"total_money\": {\n      \"amount\": \"<integer>\",\n      \"currency\": \"<string>\"\n    },\n    \"location_id\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:05:51.000Z",
+                  "updatedAt": "2026-06-05T15:05:51.000Z",
+                  "uid": "35240-ad07f8f4-67c0-4893-a7ca-0811997963ef"
+                }
+              ],
+              "createdAt": "2026-06-05T15:05:51.000Z",
+              "updatedAt": "2026-06-05T15:05:51.000Z",
+              "uid": "35240-c12d5e6a-6677-4e3a-9ec9-082a558ab3cd"
+            }
+          ],
+          "id": "b793c034-245d-43f9-9b9f-138543f94ff9",
+          "createdAt": "2026-06-05T15:05:51.000Z",
+          "updatedAt": "2026-06-05T15:05:51.000Z",
+          "uid": "35240-b793c034-245d-43f9-9b9f-138543f94ff9"
+        },
+        {
+          "name": "Block Square List Payments",
+          "id": "aef3aac4-e68a-4273-bb60-da5ae2414c66",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/payments?begin_time=<dateTime>&end_time=<dateTime>&cursor=<string>&limit=<integer>&location_id=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payments"
+              ],
+              "query": [
+                {
+                  "description": "The start of the time range to retrieve payments for.",
+                  "key": "begin_time",
+                  "value": "<dateTime>"
+                },
+                {
+                  "description": "The end of the time range to retrieve payments for.",
+                  "key": "end_time",
+                  "value": "<dateTime>"
+                },
+                {
+                  "description": "A pagination cursor returned by a previous call.",
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The maximum number of results to be returned.",
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "Limit results to the location supplied.",
+                  "key": "location_id",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieves a list of payments taken by the account making the request."
+          },
+          "response": [
+            {
+              "id": "da27b424-09f9-45da-ae7c-b99e992f4b9b",
+              "name": "List of payments retrieved successfully",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/payments?begin_time=<dateTime>&end_time=<dateTime>&cursor=<string>&limit=<integer>&location_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments"
+                  ],
+                  "query": [
+                    {
+                      "description": "The start of the time range to retrieve payments for.",
+                      "key": "begin_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "The end of the time range to retrieve payments for.",
+                      "key": "end_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "A pagination cursor returned by a previous call.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of results to be returned.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Limit results to the location supplied.",
+                      "key": "location_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"payments\": [\n    {\n      \"id\": \"<string>\",\n      \"status\": \"<string>\",\n      \"source_type\": \"<string>\",\n      \"amount_money\": {\n        \"amount\": \"<integer>\",\n        \"currency\": \"<string>\"\n      },\n      \"total_money\": {\n        \"amount\": \"<integer>\",\n        \"currency\": \"<string>\"\n      },\n      \"location_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"status\": \"<string>\",\n      \"source_type\": \"<string>\",\n      \"amount_money\": {\n        \"amount\": \"<integer>\",\n        \"currency\": \"<string>\"\n      },\n      \"total_money\": {\n        \"amount\": \"<integer>\",\n        \"currency\": \"<string>\"\n      },\n      \"location_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"cursor\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:05:51.000Z",
+              "updatedAt": "2026-06-05T15:05:51.000Z",
+              "uid": "35240-da27b424-09f9-45da-ae7c-b99e992f4b9b"
+            }
+          ],
+          "createdAt": "2026-06-05T15:05:51.000Z",
+          "updatedAt": "2026-06-05T15:05:51.000Z",
+          "uid": "35240-aef3aac4-e68a-4273-bb60-da5ae2414c66"
+        },
+        {
+          "name": "Block Square Create Payment",
+          "id": "e06a5403-d8da-4433-95f5-f15be056ecab",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source_id\": \"<string>\",\n  \"idempotency_key\": \"<string>\",\n  \"amount_money\": {\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  },\n  \"location_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payments"
+              ]
+            },
+            "description": "Creates a payment using the provided source."
+          },
+          "response": [
+            {
+              "id": "931c6f1f-02be-49a8-8b4f-b4836fb3ec70",
+              "name": "Payment created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source_id\": \"<string>\",\n  \"idempotency_key\": \"<string>\",\n  \"amount_money\": {\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  },\n  \"location_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"payment\": {\n    \"id\": \"<string>\",\n    \"status\": \"<string>\",\n    \"source_type\": \"<string>\",\n    \"amount_money\": {\n      \"amount\": \"<integer>\",\n      \"currency\": \"<string>\"\n    },\n    \"total_money\": {\n      \"amount\": \"<integer>\",\n      \"currency\": \"<string>\"\n    },\n    \"location_id\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:05:51.000Z",
+              "updatedAt": "2026-06-05T15:05:51.000Z",
+              "uid": "35240-931c6f1f-02be-49a8-8b4f-b4836fb3ec70"
+            }
+          ],
+          "createdAt": "2026-06-05T15:05:51.000Z",
+          "updatedAt": "2026-06-05T15:05:51.000Z",
+          "uid": "35240-e06a5403-d8da-4433-95f5-f15be056ecab"
+        }
+      ],
+      "id": "d4949aae-271e-4d37-b729-b4602c950116",
+      "createdAt": "2026-06-05T15:05:51.000Z",
+      "updatedAt": "2026-06-05T15:05:51.000Z",
+      "uid": "35240-d4949aae-271e-4d37-b729-b4602c950116"
+    },
+    {
+      "name": "orders",
+      "item": [
+        {
+          "name": "Block Square Create Order",
+          "id": "989dcd84-5b74-403a-9948-044ef94121f2",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order\": {\n    \"id\": \"<string>\",\n    \"location_id\": \"<string>\",\n    \"state\": \"<string>\",\n    \"version\": \"<integer>\",\n    \"total_money\": {\n      \"amount\": \"<integer>\",\n      \"currency\": \"<string>\"\n    },\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  },\n  \"idempotency_key\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Creates a new order that can include information on products for purchase."
+          },
+          "response": [
+            {
+              "id": "69631a22-6f3a-499e-b428-0120d57c450d",
+              "name": "Order created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order\": {\n    \"id\": \"<string>\",\n    \"location_id\": \"<string>\",\n    \"state\": \"<string>\",\n    \"version\": \"<integer>\",\n    \"total_money\": {\n      \"amount\": \"<integer>\",\n      \"currency\": \"<string>\"\n    },\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  },\n  \"idempotency_key\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"order\": {\n    \"id\": \"<string>\",\n    \"location_id\": \"<string>\",\n    \"state\": \"<string>\",\n    \"version\": \"<integer>\",\n    \"total_money\": {\n      \"amount\": \"<integer>\",\n      \"currency\": \"<string>\"\n    },\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:05:51.000Z",
+              "updatedAt": "2026-06-05T15:05:51.000Z",
+              "uid": "35240-69631a22-6f3a-499e-b428-0120d57c450d"
+            }
+          ],
+          "createdAt": "2026-06-05T15:05:51.000Z",
+          "updatedAt": "2026-06-05T15:05:51.000Z",
+          "uid": "35240-989dcd84-5b74-403a-9948-044ef94121f2"
+        }
+      ],
+      "id": "1c8dcff4-039f-423d-a28d-b9f85829a772",
+      "createdAt": "2026-06-05T15:05:51.000Z",
+      "updatedAt": "2026-06-05T15:05:51.000Z",
+      "uid": "35240-1c8dcff4-039f-423d-a28d-b9f85829a772"
+    },
+    {
+      "name": "catalog",
+      "item": [
+        {
+          "name": "list",
+          "item": [
+            {
+              "name": "Block Square List Catalog",
+              "id": "eb37551e-34e3-4c53-86b2-767c36ad8709",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/list?types=<string>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "list"
+                  ],
+                  "query": [
+                    {
+                      "description": "Comma-separated list of CatalogObject types to return.",
+                      "key": "types",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Pagination cursor.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Returns a list of all CatalogObjects of the specified types in the catalog."
+              },
+              "response": [
+                {
+                  "id": "9f3ac07b-49e5-464f-a04a-f94fa6a78d39",
+                  "name": "Catalog items retrieved successfully",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/catalog/list?types=<string>&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "catalog",
+                        "list"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated list of CatalogObject types to return.",
+                          "key": "types",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Pagination cursor.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"objects\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"version\": \"<integer>\",\n      \"item_data\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"version\": \"<integer>\",\n      \"item_data\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    }\n  ],\n  \"cursor\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:05:51.000Z",
+                  "updatedAt": "2026-06-05T15:05:51.000Z",
+                  "uid": "35240-9f3ac07b-49e5-464f-a04a-f94fa6a78d39"
+                }
+              ],
+              "createdAt": "2026-06-05T15:05:51.000Z",
+              "updatedAt": "2026-06-05T15:05:51.000Z",
+              "uid": "35240-eb37551e-34e3-4c53-86b2-767c36ad8709"
+            }
+          ],
+          "id": "fd59d799-d032-4d7d-839d-01b54e3c5eaf",
+          "createdAt": "2026-06-05T15:05:51.000Z",
+          "updatedAt": "2026-06-05T15:05:51.000Z",
+          "uid": "35240-fd59d799-d032-4d7d-839d-01b54e3c5eaf"
+        }
+      ],
+      "id": "0ab81263-abe6-4c3f-904e-ca287987aac2",
+      "createdAt": "2026-06-05T15:05:51.000Z",
+      "updatedAt": "2026-06-05T15:05:51.000Z",
+      "uid": "35240-0ab81263-abe6-4c3f-904e-ca287987aac2"
+    },
+    {
+      "name": "customers",
+      "item": [
+        {
+          "name": "Block Square List Customers",
+          "id": "db2cf61a-bd75-4335-b254-1a158ba412d1",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/customers?cursor=<string>&limit=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers"
+              ],
+              "query": [
+                {
+                  "description": "Pagination cursor.",
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Maximum number of results to return.",
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ]
+            },
+            "description": "Lists customer profiles associated with a Square account."
+          },
+          "response": [
+            {
+              "id": "6ecabab1-cc9b-4330-9af4-eba16cce6eda",
+              "name": "Customers retrieved successfully",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/customers?cursor=<string>&limit=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers"
+                  ],
+                  "query": [
+                    {
+                      "description": "Pagination cursor.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results to return.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"customers\": [\n    {\n      \"id\": \"<string>\",\n      \"given_name\": \"<string>\",\n      \"family_name\": \"<string>\",\n      \"email_address\": \"<email>\",\n      \"phone_number\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"given_name\": \"<string>\",\n      \"family_name\": \"<string>\",\n      \"email_address\": \"<email>\",\n      \"phone_number\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"cursor\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:05:51.000Z",
+              "updatedAt": "2026-06-05T15:05:51.000Z",
+              "uid": "35240-6ecabab1-cc9b-4330-9af4-eba16cce6eda"
+            }
+          ],
+          "createdAt": "2026-06-05T15:05:51.000Z",
+          "updatedAt": "2026-06-05T15:05:51.000Z",
+          "uid": "35240-db2cf61a-bd75-4335-b254-1a158ba412d1"
+        },
+        {
+          "name": "Block Square Create Customer",
+          "id": "171369d8-df92-4a79-9d40-2e4c1ad16d81",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idempotency_key\": \"<string>\",\n  \"given_name\": \"<string>\",\n  \"family_name\": \"<string>\",\n  \"email_address\": \"<email>\",\n  \"phone_number\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/customers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers"
+              ]
+            },
+            "description": "Creates a new customer for a business."
+          },
+          "response": [
+            {
+              "id": "0e1055f4-f47d-4c1b-bfd7-adeb681f4629",
+              "name": "Customer created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idempotency_key\": \"<string>\",\n  \"given_name\": \"<string>\",\n  \"family_name\": \"<string>\",\n  \"email_address\": \"<email>\",\n  \"phone_number\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/customers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"given_name\": \"<string>\",\n    \"family_name\": \"<string>\",\n    \"email_address\": \"<email>\",\n    \"phone_number\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:05:51.000Z",
+              "updatedAt": "2026-06-05T15:05:51.000Z",
+              "uid": "35240-0e1055f4-f47d-4c1b-bfd7-adeb681f4629"
+            }
+          ],
+          "createdAt": "2026-06-05T15:05:51.000Z",
+          "updatedAt": "2026-06-05T15:05:51.000Z",
+          "uid": "35240-171369d8-df92-4a79-9d40-2e4c1ad16d81"
+        }
+      ],
+      "id": "75a38968-6a6d-4831-af1a-931a2bce343b",
+      "createdAt": "2026-06-05T15:05:51.000Z",
+      "updatedAt": "2026-06-05T15:05:51.000Z",
+      "uid": "35240-75a38968-6a6d-4831-af1a-931a2bce343b"
+    },
+    {
+      "name": "locations",
+      "item": [
+        {
+          "name": "Block Square List Locations",
+          "id": "21cb9eb1-faa5-4a51-ae03-3dcee5cc293a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/locations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "locations"
+              ]
+            },
+            "description": "Provides details about all of the seller's locations, including those with an inactive status."
+          },
+          "response": [
+            {
+              "id": "e015bffb-aaf1-496a-b64d-e25db284a58a",
+              "name": "Locations retrieved successfully",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/locations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "locations"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"locations\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"timezone\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"timezone\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:05:51.000Z",
+              "updatedAt": "2026-06-05T15:05:51.000Z",
+              "uid": "35240-e015bffb-aaf1-496a-b64d-e25db284a58a"
+            }
+          ],
+          "createdAt": "2026-06-05T15:05:51.000Z",
+          "updatedAt": "2026-06-05T15:05:51.000Z",
+          "uid": "35240-21cb9eb1-faa5-4a51-ae03-3dcee5cc293a"
+        }
+      ],
+      "id": "796dfa37-0642-4a63-9956-2ba544bb10db",
+      "createdAt": "2026-06-05T15:05:51.000Z",
+      "updatedAt": "2026-06-05T15:05:51.000Z",
+      "uid": "35240-796dfa37-0642-4a63-9956-2ba544bb10db"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://connect.squareup.com/v2"
+    }
+  ]
+}
