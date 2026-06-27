@@ -42,137 +42,134 @@ apis:
     url: rules/block-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/block-vocabulary.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/square-catalog.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/square-customers.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/square-merchants.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/square-orders.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/square-payments.yaml
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/block/overview
-- type: ArazzoWorkflows
-  url: arazzo/
-  workflows:
-  - url: arazzo/block-catalog-browse-and-order-verify-workflow.yml
+  - type: Arazzo
+    url: arazzo/block-catalog-browse-and-order-verify-workflow.yml
     name: Block Square Catalog Browse And Order Verify
-    summary: Browse catalog items, open an order, and branch on whether the order is OPEN.
-  - url: arazzo/block-catalog-driven-order-workflow.yml
+  - type: Arazzo
+    url: arazzo/block-catalog-driven-order-workflow.yml
     name: Block Square Catalog Driven Order
-    summary: Browse the catalog, build an order from a selected item, and capture payment.
-  - url: arazzo/block-catalog-to-customer-order-workflow.yml
+  - type: Arazzo
+    url: arazzo/block-catalog-to-customer-order-workflow.yml
     name: Block Square Catalog To Customer Order
-    summary: Browse the catalog, create a customer, and open an order for them.
-  - url: arazzo/block-customer-order-then-pay-workflow.yml
+  - type: Arazzo
+    url: arazzo/block-customer-order-then-pay-workflow.yml
     name: Block Square Customer Order Then Pay
-    summary: Create an order, branch on its state, and only take payment when it is OPEN.
-  - url: arazzo/block-customer-payment-audit-workflow.yml
+  - type: Arazzo
+    url: arazzo/block-customer-payment-audit-workflow.yml
     name: Block Square Customer Payment Audit
-    summary: Pull a customer roster, list payments for a location, and detail the latest one.
-  - url: arazzo/block-full-commerce-flow-workflow.yml
+  - type: Arazzo
+    url: arazzo/block-full-commerce-flow-workflow.yml
     name: Block Square Full Commerce Flow
-    summary: Resolve a location, create a customer, place an order, take payment, and verify it.
-  - url: arazzo/block-location-first-sale-workflow.yml
+  - type: Arazzo
+    url: arazzo/block-location-first-sale-workflow.yml
     name: Block Square Location First Sale
-    summary: Resolve the active seller location, open an order there, and take payment.
-  - url: arazzo/block-location-payment-reconciliation-workflow.yml
+  - type: Arazzo
+    url: arazzo/block-location-payment-reconciliation-workflow.yml
     name: Block Square Location Payment Reconciliation
-    summary: Resolve a location, list its recent payments, and detail the most recent one.
-  - url: arazzo/block-new-customer-checkout-workflow.yml
+  - type: Arazzo
+    url: arazzo/block-new-customer-checkout-workflow.yml
     name: Block Square New Customer Checkout
-    summary: Create a customer, place an order for them, then capture payment for that order.
-  - url: arazzo/block-onboard-customer-and-charge-workflow.yml
+  - type: Arazzo
+    url: arazzo/block-onboard-customer-and-charge-workflow.yml
     name: Block Square Onboard Customer And Charge
-    summary: Resolve a location, create a customer, and charge a direct payment to them.
-  - url: arazzo/block-reconcile-payment-workflow.yml
+  - type: Arazzo
+    url: arazzo/block-reconcile-payment-workflow.yml
     name: Block Square Reconcile Payment
-    summary: List recent payments for a location and pull full detail on the most recent one.
-  - url: arazzo/block-returning-customer-checkout-workflow.yml
+  - type: Arazzo
+    url: arazzo/block-returning-customer-checkout-workflow.yml
     name: Block Square Returning Customer Checkout
-    summary: Find an existing customer or create one, then place and pay for their order.
-  - url: arazzo/block-take-payment-and-verify-workflow.yml
+  - type: Arazzo
+    url: arazzo/block-take-payment-and-verify-workflow.yml
     name: Block Square Take Payment And Verify
-    summary: Take a card payment and immediately re-read it to confirm the final status.
-- type: LinkedIn
-  url: https://www.linkedin.com/company/joinblock
-- type: Website
-  url: https://www.block.xyz
-- type: Documentation
-  url: https://developer.squareup.com/docs
-- type: GettingStarted
-  url: https://developer.squareup.com/docs/get-started
-- type: Pricing
-  url: https://squareup.com/us/en/payments/our-rates
-- type: StatusPage
-  url: https://www.issquareup.com/
-- type: Support
-  url: https://developer.squareup.com/forums
-- type: GitHubOrganization
-  url: https://github.com/square
-- type: TermsOfService
-  url: https://squareup.com/us/en/legal/developer
-- type: PrivacyPolicy
-  url: https://squareup.com/us/en/legal/privacy
-- type: Login
-  url: https://developer.squareup.com/apps
-- type: SDK
-  url: https://developer.squareup.com/docs/sdks
-  title: Square SDKs
-- type: SpectralRules
-  url: rules/block-spectral-rules.yml
-- type: Vocabulary
-  url: vocabulary/block-vocabulary.yaml
-- type: Features
-  data:
-  - name: Payment Processing
-    description: Accept card-present and card-not-present payments using Square hardware, web, or mobile SDKs with OAuth 2.0
-      or access token authentication.
-  - name: Order Management
-    description: Create, update, and fulfill orders with line items, discounts, taxes, and service charges across online and
-      in-person channels.
-  - name: Catalog Management
-    description: Manage a unified product catalog with items, variations, modifiers, categories, taxes, and discounts synchronized
-      across all locations.
-  - name: Customer Engagement
-    description: Build customer profiles, loyalty programs, gift cards, and marketing campaigns to drive repeat business and
-      customer retention.
-  - name: Multi-Location Support
-    description: Manage multiple business locations with location-specific inventory, pricing, staff permissions, and reporting.
-  - name: Webhook Events
-    description: Subscribe to real-time webhook events for payments, orders, inventory changes, customer activity, and subscription
-      lifecycle events.
-  - name: Sandbox Environment
-    description: Full sandbox environment with test card numbers, merchant accounts, and simulated hardware for development
-      and testing.
-- type: UseCases
-  data:
-  - name: Point of Sale Integration
-    description: Retailers and restaurants build custom POS applications using Square's payment, catalog, and order APIs.
-  - name: eCommerce Checkout
-    description: Online stores integrate Square's Web Payments SDK and Orders API to accept payments and manage fulfillment.
-  - name: Marketplace Payments
-    description: Multi-seller marketplaces use Square Connect to route payments to sellers and manage fees through the Payouts
-      API.
-  - name: Subscription Billing
-    description: SaaS and service businesses use Square Subscriptions API for automated recurring billing and invoice management.
-  - name: Loyalty and Rewards
-    description: Businesses implement custom loyalty programs using the Loyalty API to track points, tiers, and reward redemptions.
-- type: Integrations
-  data:
-  - name: WooCommerce
-    description: Official Square extension for WooCommerce synchronizes inventory, products, and payments between WordPress
-      stores and Square.
-  - name: BigCommerce
-    description: Square integration for BigCommerce enables omnichannel selling with synchronized catalog and unified payment
-      processing.
-  - name: Xero
-    description: Square-Xero integration automatically syncs sales transactions and payments to Xero accounting for reconciliation.
-  - name: QuickBooks
-    description: Square connector for QuickBooks Online syncs sales, refunds, and fees to QuickBooks for financial reporting.
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/joinblock
+  - type: Website
+    url: https://www.block.xyz
+  - type: Documentation
+    url: https://developer.squareup.com/docs
+  - type: GettingStarted
+    url: https://developer.squareup.com/docs/get-started
+  - type: Pricing
+    url: https://squareup.com/us/en/payments/our-rates
+  - type: StatusPage
+    url: https://www.issquareup.com/
+  - type: Support
+    url: https://developer.squareup.com/forums
+  - type: GitHubOrganization
+    url: https://github.com/square
+  - type: TermsOfService
+    url: https://squareup.com/us/en/legal/developer
+  - type: PrivacyPolicy
+    url: https://squareup.com/us/en/legal/privacy
+  - type: Login
+    url: https://developer.squareup.com/apps
+  - type: SDKs
+    url: https://developer.squareup.com/docs/sdks
+    title: Square SDKs
+  - type: SpectralRules
+    url: rules/block-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/block-vocabulary.yaml
+  - type: Features
+    data:
+    - name: Payment Processing
+      description: Accept card-present and card-not-present payments using Square hardware, web, or mobile SDKs with OAuth 2.0
+        or access token authentication.
+    - name: Order Management
+      description: Create, update, and fulfill orders with line items, discounts, taxes, and service charges across online and
+        in-person channels.
+    - name: Catalog Management
+      description: Manage a unified product catalog with items, variations, modifiers, categories, taxes, and discounts synchronized
+        across all locations.
+    - name: Customer Engagement
+      description: Build customer profiles, loyalty programs, gift cards, and marketing campaigns to drive repeat business and
+        customer retention.
+    - name: Multi-Location Support
+      description: Manage multiple business locations with location-specific inventory, pricing, staff permissions, and reporting.
+    - name: Webhook Events
+      description: Subscribe to real-time webhook events for payments, orders, inventory changes, customer activity, and subscription
+        lifecycle events.
+    - name: Sandbox Environment
+      description: Full sandbox environment with test card numbers, merchant accounts, and simulated hardware for development
+        and testing.
+  - type: UseCases
+    data:
+    - name: Point of Sale Integration
+      description: Retailers and restaurants build custom POS applications using Square's payment, catalog, and order APIs.
+    - name: eCommerce Checkout
+      description: Online stores integrate Square's Web Payments SDK and Orders API to accept payments and manage fulfillment.
+    - name: Marketplace Payments
+      description: Multi-seller marketplaces use Square Connect to route payments to sellers and manage fees through the Payouts
+        API.
+    - name: Subscription Billing
+      description: SaaS and service businesses use Square Subscriptions API for automated recurring billing and invoice management.
+    - name: Loyalty and Rewards
+      description: Businesses implement custom loyalty programs using the Loyalty API to track points, tiers, and reward redemptions.
+  - type: Integrations
+    data:
+    - name: WooCommerce
+      description: Official Square extension for WooCommerce synchronizes inventory, products, and payments between WordPress
+        stores and Square.
+    - name: BigCommerce
+      description: Square integration for BigCommerce enables omnichannel selling with synchronized catalog and unified payment
+        processing.
+    - name: Xero
+      description: Square-Xero integration automatically syncs sales transactions and payments to Xero accounting for reconciliation.
+    - name: QuickBooks
+      description: Square connector for QuickBooks Online syncs sales, refunds, and fees to QuickBooks for financial reporting.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
