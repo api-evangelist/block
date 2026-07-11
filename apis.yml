@@ -53,6 +53,8 @@ apis:
   - type: X-NaftikoCapability
     url: capabilities/square-payments.yaml
 common:
+  - type: OAuthScopes
+    url: scopes/block-scopes.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/block/overview
   - type: Arazzo

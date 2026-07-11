@@ -1,0 +1,47 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/block-square-api-openapi.yaml
+schemes:
+- name: OAuth2
+  source: openapi/block-square-api-openapi.yaml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://connect.squareup.com/oauth2/authorize
+    tokenUrl: https://connect.squareup.com/oauth2/token
+scopes:
+- scope: CUSTOMERS_READ
+  description: Read customers
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/block-square-api-openapi.yaml
+- scope: CUSTOMERS_WRITE
+  description: Write customers
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/block-square-api-openapi.yaml
+- scope: ORDERS_READ
+  description: Read orders
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/block-square-api-openapi.yaml
+- scope: ORDERS_WRITE
+  description: Write orders
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/block-square-api-openapi.yaml
+- scope: PAYMENTS_READ
+  description: Read payments
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/block-square-api-openapi.yaml
+- scope: PAYMENTS_WRITE
+  description: Write payments
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/block-square-api-openapi.yaml
