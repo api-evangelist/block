@@ -53,6 +53,8 @@ apis:
   - type: X-NaftikoCapability
     url: capabilities/square-payments.yaml
 common:
+  - type: AgenticAccess
+    url: agentic-access/block-agentic-access.yml
   - type: DomainSecurity
     url: security/block-domain-security.yml
   - type: Authentication
