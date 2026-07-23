@@ -1,0 +1,199 @@
+openapi: 3.0.3
+info:
+  title: Square Catalog Customers API
+  description: Square API provides payment processing, commerce, customer management, and business operations capabilities for sellers, developers, and merchants. Supports point-of-sale, ecommerce, invoicing, loyalty, gift cards, and more.
+  version: 2026-01-22
+  contact:
+    name: Square Developer Support
+    url: https://developer.squareup.com/forums
+  termsOfService: https://squareup.com/us/en/legal/general/developer
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://connect.squareup.com/v2
+  description: Production
+- url: https://connect.squareupsandbox.com/v2
+  description: Sandbox
+security:
+- BearerAuth: []
+- OAuth2: []
+tags:
+- name: Customers
+  description: Customer management and engagement
+paths:
+  /customers:
+    get:
+      operationId: list-customers
+      summary: Block Square List Customers
+      description: Lists customer profiles associated with a Square account.
+      tags:
+      - Customers
+      parameters:
+      - name: cursor
+        in: query
+        schema:
+          type: string
+        description: Pagination cursor.
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          maximum: 100
+        description: Maximum number of results to return.
+      responses:
+        '200':
+          description: Customers retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCustomersResponse'
+              examples:
+                list-customers:
+                  summary: List of customers
+                  value:
+                    customers:
+                    - id: JDKYHBWT1D4F8MFH63DBMEN8Y4
+                      given_name: Amelia
+                      family_name: Earhart
+                      email_address: Amelia.Earhart@example.com
+                      phone_number: '+11234567890'
+                      created_at: '2016-03-23T20:21:54.859Z'
+                      updated_at: '2016-03-23T20:21:55Z'
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 50
+        dispatcher: FALLBACK
+    post:
+      operationId: create-customer
+      summary: Block Square Create Customer
+      description: Creates a new customer for a business.
+      tags:
+      - Customers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerRequest'
+            examples:
+              create-customer:
+                summary: New customer
+                value:
+                  idempotency_key: 916f88d4-ba1d-11ea-b3de-0242ac130004
+                  given_name: Amelia
+                  family_name: Earhart
+                  email_address: Amelia.Earhart@example.com
+                  phone_number: '+11234567890'
+                x-microcks-default: true
+      responses:
+        '200':
+          description: Customer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCustomerResponse'
+              examples:
+                created-customer:
+                  summary: Created customer
+                  value:
+                    customer:
+                      id: JDKYHBWT1D4F8MFH63DBMEN8Y4
+                      given_name: Amelia
+                      family_name: Earhart
+                      email_address: Amelia.Earhart@example.com
+                      phone_number: '+11234567890'
+                      created_at: '2016-03-23T20:21:54.859Z'
+                      updated_at: '2016-03-23T20:21:55Z'
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 100
+        dispatcher: SCRIPT
+components:
+  schemas:
+    ListCustomersResponse:
+      type: object
+      properties:
+        customers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+        cursor:
+          type: string
+    CreateCustomerResponse:
+      type: object
+      properties:
+        customer:
+          $ref: '#/components/schemas/Customer'
+    Customer:
+      type: object
+      description: Represents a customer profile in a Square seller account.
+      properties:
+        id:
+          type: string
+          description: Unique ID for this customer.
+          example: JDKYHBWT1D4F8MFH63DBMEN8Y4
+        given_name:
+          type: string
+          description: Customer's first name.
+          example: Amelia
+        family_name:
+          type: string
+          description: Customer's last name.
+          example: Earhart
+        email_address:
+          type: string
+          format: email
+          description: Customer's email address.
+          example: Amelia.Earhart@example.com
+        phone_number:
+          type: string
+          description: Customer's phone number.
+          example: '+11234567890'
+        created_at:
+          type: string
+          format: date-time
+          example: '2016-03-23T20:21:54.859Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2016-03-23T20:21:55Z'
+    CreateCustomerRequest:
+      type: object
+      properties:
+        idempotency_key:
+          type: string
+          example: 916f88d4-ba1d-11ea-b3de-0242ac130004
+        given_name:
+          type: string
+          example: Amelia
+        family_name:
+          type: string
+          example: Earhart
+        email_address:
+          type: string
+          format: email
+          example: Amelia.Earhart@example.com
+        phone_number:
+          type: string
+          example: '+11234567890'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Personal access token for Square API
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://connect.squareup.com/oauth2/authorize
+          tokenUrl: https://connect.squareup.com/oauth2/token
+          scopes:
+            PAYMENTS_READ: Read payments
+            PAYMENTS_WRITE: Write payments
+            ORDERS_READ: Read orders
+            ORDERS_WRITE: Write orders
+            CUSTOMERS_READ: Read customers
+            CUSTOMERS_WRITE: Write customers
+x-generated-from: documentation
+x-source-url: https://developer.squareup.com/reference/square

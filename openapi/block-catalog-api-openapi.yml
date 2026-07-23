@@ -1,0 +1,129 @@
+openapi: 3.0.3
+info:
+  title: Square Catalog API
+  description: Square API provides payment processing, commerce, customer management, and business operations capabilities for sellers, developers, and merchants. Supports point-of-sale, ecommerce, invoicing, loyalty, gift cards, and more.
+  version: 2026-01-22
+  contact:
+    name: Square Developer Support
+    url: https://developer.squareup.com/forums
+  termsOfService: https://squareup.com/us/en/legal/general/developer
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://connect.squareup.com/v2
+  description: Production
+- url: https://connect.squareupsandbox.com/v2
+  description: Sandbox
+security:
+- BearerAuth: []
+- OAuth2: []
+tags:
+- name: Catalog
+  description: Manage product catalog
+paths:
+  /catalog/list:
+    get:
+      operationId: list-catalog
+      summary: Block Square List Catalog
+      description: Returns a list of all CatalogObjects of the specified types in the catalog.
+      tags:
+      - Catalog
+      parameters:
+      - name: types
+        in: query
+        schema:
+          type: string
+        description: Comma-separated list of CatalogObject types to return.
+      - name: cursor
+        in: query
+        schema:
+          type: string
+        description: Pagination cursor.
+      responses:
+        '200':
+          description: Catalog items retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCatalogResponse'
+              examples:
+                list-catalog:
+                  summary: Catalog items
+                  value:
+                    objects:
+                    - type: ITEM
+                      id: RYOIMONN5KRSWHVY7TNKH
+                      version: 1554399346626
+                      item_data:
+                        name: Caramel Macchiato
+                        description: Hot or iced espresso beverage
+                        variations:
+                        - type: ITEM_VARIATION
+                          id: OTYDX45SPG7LJQUVSPOEH6AQ
+                          item_variation_data:
+                            name: Regular
+                            price_money:
+                              amount: 550
+                              currency: USD
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 50
+        dispatcher: FALLBACK
+components:
+  schemas:
+    CatalogObject:
+      type: object
+      description: The wrapper object for the catalog entries of a given object type.
+      properties:
+        type:
+          type: string
+          description: The type of this object (ITEM, ITEM_VARIATION, CATEGORY, etc.).
+          example: ITEM
+        id:
+          type: string
+          description: Unique ID for this CatalogObject.
+          example: RYOIMONN5KRSWHVY7TNKH
+        version:
+          type: integer
+          description: The version of the object, used for optimistic concurrency control.
+          example: 1554399346626
+        item_data:
+          type: object
+          description: Structured data for a CatalogItem.
+          properties:
+            name:
+              type: string
+              example: Caramel Macchiato
+            description:
+              type: string
+              example: Hot or iced espresso beverage
+    ListCatalogResponse:
+      type: object
+      properties:
+        objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/CatalogObject'
+        cursor:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Personal access token for Square API
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://connect.squareup.com/oauth2/authorize
+          tokenUrl: https://connect.squareup.com/oauth2/token
+          scopes:
+            PAYMENTS_READ: Read payments
+            PAYMENTS_WRITE: Write payments
+            ORDERS_READ: Read orders
+            ORDERS_WRITE: Write orders
+            CUSTOMERS_READ: Read customers
+            CUSTOMERS_WRITE: Write customers
+x-generated-from: documentation
+x-source-url: https://developer.squareup.com/reference/square

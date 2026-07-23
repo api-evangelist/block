@@ -1,0 +1,111 @@
+openapi: 3.0.3
+info:
+  title: Square Catalog Merchants API
+  description: Square API provides payment processing, commerce, customer management, and business operations capabilities for sellers, developers, and merchants. Supports point-of-sale, ecommerce, invoicing, loyalty, gift cards, and more.
+  version: 2026-01-22
+  contact:
+    name: Square Developer Support
+    url: https://developer.squareup.com/forums
+  termsOfService: https://squareup.com/us/en/legal/general/developer
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://connect.squareup.com/v2
+  description: Production
+- url: https://connect.squareupsandbox.com/v2
+  description: Sandbox
+security:
+- BearerAuth: []
+- OAuth2: []
+tags:
+- name: Merchants
+  description: Merchant and location data
+paths:
+  /locations:
+    get:
+      operationId: list-locations
+      summary: Block Square List Locations
+      description: Provides details about all of the seller's locations, including those with an inactive status.
+      tags:
+      - Merchants
+      responses:
+        '200':
+          description: Locations retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListLocationsResponse'
+              examples:
+                list-locations:
+                  summary: Seller locations
+                  value:
+                    locations:
+                    - id: L1234567890
+                      name: Main Street Store
+                      address:
+                        address_line_1: 1234 Main St
+                        locality: San Francisco
+                        administrative_district_level_1: CA
+                        postal_code: '94105'
+                        country: US
+                      timezone: America/Los_Angeles
+                      currency: USD
+                      status: ACTIVE
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 50
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ListLocationsResponse:
+      type: object
+      properties:
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+    Location:
+      type: object
+      description: Represents one of a business's seller locations.
+      properties:
+        id:
+          type: string
+          description: Unique ID for this location.
+          example: L1234567890
+        name:
+          type: string
+          description: The business name of the location.
+          example: Main Street Store
+        timezone:
+          type: string
+          description: IANA timezone database identifier for the location.
+          example: America/Los_Angeles
+        currency:
+          type: string
+          description: The ISO 4217 currency code associated with this location.
+          example: USD
+        status:
+          type: string
+          description: The status of the location (ACTIVE, INACTIVE).
+          example: ACTIVE
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Personal access token for Square API
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://connect.squareup.com/oauth2/authorize
+          tokenUrl: https://connect.squareup.com/oauth2/token
+          scopes:
+            PAYMENTS_READ: Read payments
+            PAYMENTS_WRITE: Write payments
+            ORDERS_READ: Read orders
+            ORDERS_WRITE: Write orders
+            CUSTOMERS_READ: Read customers
+            CUSTOMERS_WRITE: Write customers
+x-generated-from: documentation
+x-source-url: https://developer.squareup.com/reference/square

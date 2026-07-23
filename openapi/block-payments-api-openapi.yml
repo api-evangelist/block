@@ -1,0 +1,291 @@
+openapi: 3.0.3
+info:
+  title: Square Catalog Payments API
+  description: Square API provides payment processing, commerce, customer management, and business operations capabilities for sellers, developers, and merchants. Supports point-of-sale, ecommerce, invoicing, loyalty, gift cards, and more.
+  version: 2026-01-22
+  contact:
+    name: Square Developer Support
+    url: https://developer.squareup.com/forums
+  termsOfService: https://squareup.com/us/en/legal/general/developer
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://connect.squareup.com/v2
+  description: Production
+- url: https://connect.squareupsandbox.com/v2
+  description: Sandbox
+security:
+- BearerAuth: []
+- OAuth2: []
+tags:
+- name: Payments
+  description: Process and manage payments
+paths:
+  /payments:
+    get:
+      operationId: list-payments
+      summary: Block Square List Payments
+      description: Retrieves a list of payments taken by the account making the request.
+      tags:
+      - Payments
+      parameters:
+      - name: begin_time
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: The start of the time range to retrieve payments for.
+      - name: end_time
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: The end of the time range to retrieve payments for.
+      - name: cursor
+        in: query
+        schema:
+          type: string
+        description: A pagination cursor returned by a previous call.
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          maximum: 100
+        description: The maximum number of results to be returned.
+      - name: location_id
+        in: query
+        schema:
+          type: string
+        description: Limit results to the location supplied.
+      responses:
+        '200':
+          description: List of payments retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPaymentsResponse'
+              examples:
+                list-payments:
+                  summary: List of payments
+                  value:
+                    payments:
+                    - id: GQTFp1ZlXdpoW4o6eGiZhbjosiDFf
+                      status: COMPLETED
+                      source_type: CARD
+                      amount_money:
+                        amount: 1500
+                        currency: USD
+                      total_money:
+                        amount: 1500
+                        currency: USD
+                      created_at: '2026-01-15T10:00:00Z'
+                      updated_at: '2026-01-15T10:00:05Z'
+                      location_id: L1234567890
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 50
+        dispatcher: FALLBACK
+    post:
+      operationId: create-payment
+      summary: Block Square Create Payment
+      description: Creates a payment using the provided source.
+      tags:
+      - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentRequest'
+            examples:
+              create-payment:
+                summary: Card payment request
+                value:
+                  source_id: cnon:card-nonce-ok
+                  idempotency_key: 7b0f3ec5-086a-4871-8f13-3c81b3875218
+                  amount_money:
+                    amount: 1500
+                    currency: USD
+                  location_id: L1234567890
+                x-microcks-default: true
+      responses:
+        '200':
+          description: Payment created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentResponse'
+              examples:
+                created-payment:
+                  summary: Created payment
+                  value:
+                    payment:
+                      id: GQTFp1ZlXdpoW4o6eGiZhbjosiDFf
+                      status: COMPLETED
+                      source_type: CARD
+                      amount_money:
+                        amount: 1500
+                        currency: USD
+                      total_money:
+                        amount: 1500
+                        currency: USD
+                      created_at: '2026-01-15T10:00:00Z'
+                      updated_at: '2026-01-15T10:00:05Z'
+                      location_id: L1234567890
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 100
+        dispatcher: SCRIPT
+  /payments/{payment_id}:
+    get:
+      operationId: get-payment
+      summary: Block Square Get Payment
+      description: Retrieves details for a specific payment.
+      tags:
+      - Payments
+      parameters:
+      - name: payment_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: A unique ID for the desired payment.
+      responses:
+        '200':
+          description: Payment retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPaymentResponse'
+              examples:
+                get-payment:
+                  summary: Payment details
+                  value:
+                    payment:
+                      id: GQTFp1ZlXdpoW4o6eGiZhbjosiDFf
+                      status: COMPLETED
+                      source_type: CARD
+                      amount_money:
+                        amount: 1500
+                        currency: USD
+                      total_money:
+                        amount: 1500
+                        currency: USD
+                      created_at: '2026-01-15T10:00:00Z'
+                      updated_at: '2026-01-15T10:00:05Z'
+                      location_id: L1234567890
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 50
+        dispatcher: URI_PARTS
+        dispatcherRules: payment_id
+components:
+  schemas:
+    Payment:
+      type: object
+      description: Represents a payment processed by Square.
+      properties:
+        id:
+          type: string
+          description: Unique ID for this payment.
+          example: GQTFp1ZlXdpoW4o6eGiZhbjosiDFf
+        status:
+          type: string
+          description: Indicates whether the payment is APPROVED, COMPLETED, CANCELED, or FAILED.
+          example: COMPLETED
+        source_type:
+          type: string
+          description: The source type for this payment (e.g., CARD, CASH, BANK_ACCOUNT).
+          example: CARD
+        amount_money:
+          $ref: '#/components/schemas/Money'
+        total_money:
+          $ref: '#/components/schemas/Money'
+        location_id:
+          type: string
+          description: The ID of the location associated with the payment.
+          example: L1234567890
+        created_at:
+          type: string
+          format: date-time
+          description: The timestamp of when the payment was created.
+          example: '2026-01-15T10:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          description: The timestamp of when the payment was last updated.
+          example: '2026-01-15T10:00:05Z'
+    CreatePaymentResponse:
+      type: object
+      properties:
+        payment:
+          $ref: '#/components/schemas/Payment'
+    GetPaymentResponse:
+      type: object
+      properties:
+        payment:
+          $ref: '#/components/schemas/Payment'
+    ListPaymentsResponse:
+      type: object
+      properties:
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payment'
+        cursor:
+          type: string
+          description: Pagination cursor for next page.
+    CreatePaymentRequest:
+      type: object
+      required:
+      - source_id
+      - idempotency_key
+      - amount_money
+      properties:
+        source_id:
+          type: string
+          description: Payment source (card nonce, token, etc.).
+          example: cnon:card-nonce-ok
+        idempotency_key:
+          type: string
+          description: Unique key to ensure idempotency.
+          example: 7b0f3ec5-086a-4871-8f13-3c81b3875218
+        amount_money:
+          $ref: '#/components/schemas/Money'
+        location_id:
+          type: string
+          description: ID of the accepting location.
+          example: L1234567890
+    Money:
+      type: object
+      description: Represents an amount of money in a specific currency.
+      properties:
+        amount:
+          type: integer
+          description: Amount in the smallest denomination of the currency.
+          example: 1500
+        currency:
+          type: string
+          description: 3-letter ISO 4217 currency code.
+          example: USD
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Personal access token for Square API
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://connect.squareup.com/oauth2/authorize
+          tokenUrl: https://connect.squareup.com/oauth2/token
+          scopes:
+            PAYMENTS_READ: Read payments
+            PAYMENTS_WRITE: Write payments
+            ORDERS_READ: Read orders
+            ORDERS_WRITE: Write orders
+            CUSTOMERS_READ: Read customers
+            CUSTOMERS_WRITE: Write customers
+x-generated-from: documentation
+x-source-url: https://developer.squareup.com/reference/square
