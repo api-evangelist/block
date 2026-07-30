@@ -14,30 +14,137 @@ tags:
 - Point Of Sale
 - Square
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/block.png
 access: 3rd-Party
 created: '2024-09-27'
 modified: '2026-05-19'
 position: Consuming
 specificationVersion: '0.19'
 apis:
-- aid: block:block-square-api
-  name: Square API
-  description: RESTful API for building commerce applications on the Square platform. Provides payment processing, order management,
-    catalog management, customer profiles, loyalty programs, invoicing, and merchant operations. Supports OAuth 2.0 and personal
-    access token authentication. Available in sandbox and production environments.
+- aid: block:block-catalog-api
+  name: Block Catalog API
+  description: Manage product catalog
   humanURL: https://developer.squareup.com/
   tags:
-  - Commerce
-  - eCommerce
-  - Payments
-  - Point Of Sale
-  - Square
+  - Catalog
   properties:
+  - type: OpenAPI
+    url: openapi/block-catalog-api-openapi.yml
   - type: Documentation
     url: https://developer.squareup.com/docs
+  - type: SpectralRules
+    url: rules/block-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/block-vocabulary.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-catalog.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-customers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-merchants.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-orders.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-payments.yaml
+- aid: block:block-customers-api
+  name: Block Customers API
+  description: Customer management and engagement
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Customers
+  properties:
   - type: OpenAPI
-    url: openapi/block-square-api-openapi.yaml
+    url: openapi/block-customers-api-openapi.yml
+  - type: Documentation
+    url: https://developer.squareup.com/docs
+  - type: SpectralRules
+    url: rules/block-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/block-vocabulary.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-catalog.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-customers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-merchants.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-orders.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-payments.yaml
+- aid: block:block-merchants-api
+  name: Block Merchants API
+  description: Merchant and location data
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Merchants
+  properties:
+  - type: OpenAPI
+    url: openapi/block-merchants-api-openapi.yml
+  - type: Documentation
+    url: https://developer.squareup.com/docs
+  - type: SpectralRules
+    url: rules/block-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/block-vocabulary.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-catalog.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-customers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-merchants.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-orders.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-payments.yaml
+- aid: block:block-orders-api
+  name: Block Orders API
+  description: Create and manage orders
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/block-orders-api-openapi.yml
+  - type: Documentation
+    url: https://developer.squareup.com/docs
+  - type: SpectralRules
+    url: rules/block-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/block-vocabulary.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-catalog.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-customers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-merchants.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-orders.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/square-payments.yaml
+- aid: block:block-payments-api
+  name: Block Payments API
+  description: Process and manage payments
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/block-payments-api-openapi.yml
+  - type: Documentation
+    url: https://developer.squareup.com/docs
   - type: SpectralRules
     url: rules/block-spectral-rules.yml
   - type: Vocabulary
