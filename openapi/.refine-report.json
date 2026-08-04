@@ -1,0 +1,22 @@
+{
+  "provider": "block",
+  "sources": [
+    "block-catalog-api-openapi.yml",
+    "block-customers-api-openapi.yml",
+    "block-merchants-api-openapi.yml",
+    "block-orders-api-openapi.yml",
+    "block-payments-api-openapi.yml"
+  ],
+  "outputs": [
+    "block-catalog-api-openapi.yml",
+    "block-customers-api-openapi.yml",
+    "block-merchants-api-openapi.yml",
+    "block-orders-api-openapi.yml",
+    "block-payments-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
