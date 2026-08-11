@@ -49,16 +49,6 @@ apis:
     url: rules/block-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/block-vocabulary.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-catalog.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-customers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-merchants.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-orders.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-payments.yaml
 - aid: block:block-customers-api
   name: Block Customers API
   description: Customer management and engagement
@@ -74,16 +64,6 @@ apis:
     url: rules/block-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/block-vocabulary.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-catalog.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-customers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-merchants.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-orders.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-payments.yaml
 - aid: block:block-merchants-api
   name: Block Merchants API
   description: Merchant and location data
@@ -99,16 +79,6 @@ apis:
     url: rules/block-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/block-vocabulary.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-catalog.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-customers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-merchants.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-orders.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-payments.yaml
 - aid: block:block-orders-api
   name: Block Orders API
   description: Create and manage orders
@@ -124,16 +94,6 @@ apis:
     url: rules/block-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/block-vocabulary.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-catalog.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-customers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-merchants.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-orders.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-payments.yaml
 - aid: block:block-payments-api
   name: Block Payments API
   description: Process and manage payments
@@ -149,17 +109,20 @@ apis:
     url: rules/block-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/block-vocabulary.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-catalog.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-customers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-merchants.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-orders.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/square-payments.yaml
 common:
+  - type: Subsidiary
+    name: Cash App
+    url: https://cash.app/
+  - type: Blog
+    url: https://block.xyz/news
+  - type: Webhooks
+    url: https://developer.squareup.com/docs/webhooks/overview
+  - type: Sandbox
+    url: https://developer.squareup.com/explorer
+  - type: MCPServer
+    url: https://developer.squareup.com/docs/mcp
+  - type: ChangeLog
+    url: https://developer.squareup.com/docs/release-notes
   - type: AgenticAccess
     url: agentic-access/block-agentic-access.yml
   - type: DomainSecurity
