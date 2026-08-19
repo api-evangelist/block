@@ -1,0 +1,140 @@
+{
+  "item": [
+    {
+      "id": "72588de6-3934-44b0-9bc0-538f76cbe852",
+      "name": "Orders",
+      "description": {
+        "content": "Create and manage orders",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f2fb3a44-6928-4d50-b64c-c243e935ba56",
+          "name": "Block Square Create Order",
+          "request": {
+            "name": "Block Square Create Order",
+            "description": {
+              "content": "Creates a new order that can include information on products for purchase.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order\": {\n    \"id\": \"<string>\",\n    \"location_id\": \"<string>\",\n    \"state\": \"<string>\",\n    \"version\": \"<integer>\",\n    \"total_money\": {\n      \"amount\": \"<integer>\",\n      \"currency\": \"<string>\"\n    },\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  },\n  \"idempotency_key\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "97973739-ce59-4baf-95d9-ce84d00cf6fd",
+              "name": "Order created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idempotency_key\": \"8193148c-9586-11e6-99f9-28cfe91d33d5\",\n  \"order\": {\n    \"location_id\": \"L1234567890\",\n    \"line_items\": [\n      {\n        \"name\": \"New York Strip Steak\",\n        \"quantity\": \"1\",\n        \"base_price_money\": {\n          \"amount\": 3000,\n          \"currency\": \"USD\"\n        }\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"order\": {\n    \"id\": \"CAISENgvlJ6jLWAzERDzjyHVybY\",\n    \"location_id\": \"L1234567890\",\n    \"state\": \"OPEN\",\n    \"version\": 1,\n    \"total_money\": {\n      \"amount\": 3000,\n      \"currency\": \"USD\"\n    },\n    \"created_at\": \"2026-01-15T10:05:00Z\",\n    \"updated_at\": \"2026-01-15T10:05:00Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://connect.squareup.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "adf15409-4855-46d2-9c8f-b873b6b0ae34",
+    "name": "Square Catalog Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Square API provides payment processing, commerce, customer management, and business operations capabilities for sellers, developers, and merchants. Supports point-of-sale, ecommerce, invoicing, loyalty, gift cards, and more.\n\nContact Support:\n Name: Square Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

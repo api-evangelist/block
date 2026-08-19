@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Square Catalog Orders API",
+    "version": "2026-01-22"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Block Square Create Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.squareup.com/v2/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new order that can include information on products for purchase."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

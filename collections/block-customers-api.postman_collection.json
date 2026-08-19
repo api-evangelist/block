@@ -1,0 +1,240 @@
+{
+  "item": [
+    {
+      "id": "2bd6b25b-7865-440c-956f-d357d2954bc3",
+      "name": "Customers",
+      "description": {
+        "content": "Customer management and engagement",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "560aca4c-0a7e-41dd-83c3-3f087c49d935",
+          "name": "Block Square List Customers",
+          "request": {
+            "name": "Block Square List Customers",
+            "description": {
+              "content": "Lists customer profiles associated with a Square account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of results to return."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "54442d33-9a31-4e33-bf2d-4d0da46ac859",
+              "name": "Customers retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"customers\": [\n    {\n      \"id\": \"JDKYHBWT1D4F8MFH63DBMEN8Y4\",\n      \"given_name\": \"Amelia\",\n      \"family_name\": \"Earhart\",\n      \"email_address\": \"Amelia.Earhart@example.com\",\n      \"phone_number\": \"+11234567890\",\n      \"created_at\": \"2016-03-23T20:21:54.859Z\",\n      \"updated_at\": \"2016-03-23T20:21:55Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f11fbe9c-8eb5-49f4-816a-2a6018bffcc6",
+          "name": "Block Square Create Customer",
+          "request": {
+            "name": "Block Square Create Customer",
+            "description": {
+              "content": "Creates a new customer for a business.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idempotency_key\": \"<string>\",\n  \"given_name\": \"<string>\",\n  \"family_name\": \"<string>\",\n  \"email_address\": \"<email>\",\n  \"phone_number\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4981a665-89be-4f9d-9416-af0c9012fa3a",
+              "name": "Customer created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idempotency_key\": \"916f88d4-ba1d-11ea-b3de-0242ac130004\",\n  \"given_name\": \"Amelia\",\n  \"family_name\": \"Earhart\",\n  \"email_address\": \"Amelia.Earhart@example.com\",\n  \"phone_number\": \"+11234567890\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"customer\": {\n    \"id\": \"JDKYHBWT1D4F8MFH63DBMEN8Y4\",\n    \"given_name\": \"Amelia\",\n    \"family_name\": \"Earhart\",\n    \"email_address\": \"Amelia.Earhart@example.com\",\n    \"phone_number\": \"+11234567890\",\n    \"created_at\": \"2016-03-23T20:21:54.859Z\",\n    \"updated_at\": \"2016-03-23T20:21:55Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://connect.squareup.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5454ef55-83ca-4d57-b71e-699742921122",
+    "name": "Square Catalog Customers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Square API provides payment processing, commerce, customer management, and business operations capabilities for sellers, developers, and merchants. Supports point-of-sale, ecommerce, invoicing, loyalty, gift cards, and more.\n\nContact Support:\n Name: Square Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

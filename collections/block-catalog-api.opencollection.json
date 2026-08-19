@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Square Catalog API",
+    "version": "2026-01-22"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Catalog",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Block Square List Catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.squareup.com/v2/catalog/list",
+            "params": [
+              {
+                "name": "types",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of CatalogObject types to return."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor."
+              }
+            ]
+          },
+          "docs": "Returns a list of all CatalogObjects of the specified types in the catalog."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

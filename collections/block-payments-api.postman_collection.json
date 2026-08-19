@@ -1,0 +1,366 @@
+{
+  "item": [
+    {
+      "id": "8b85fac4-26fe-4676-adf1-02b150607048",
+      "name": "Payments",
+      "description": {
+        "content": "Process and manage payments",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1c987560-bd19-4aff-add4-14a80ed64f99",
+          "name": "Block Square List Payments",
+          "request": {
+            "name": "Block Square List Payments",
+            "description": {
+              "content": "Retrieves a list of payments taken by the account making the request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "begin_time",
+                  "value": "<dateTime>",
+                  "description": "The start of the time range to retrieve payments for."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_time",
+                  "value": "<dateTime>",
+                  "description": "The end of the time range to retrieve payments for."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "A pagination cursor returned by a previous call."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum number of results to be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "location_id",
+                  "value": "<string>",
+                  "description": "Limit results to the location supplied."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "71ed4842-dd65-49fe-bdba-7a19167cbe4f",
+              "name": "List of payments retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "begin_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "location_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"payments\": [\n    {\n      \"id\": \"GQTFp1ZlXdpoW4o6eGiZhbjosiDFf\",\n      \"status\": \"COMPLETED\",\n      \"source_type\": \"CARD\",\n      \"amount_money\": {\n        \"amount\": 1500,\n        \"currency\": \"USD\"\n      },\n      \"total_money\": {\n        \"amount\": 1500,\n        \"currency\": \"USD\"\n      },\n      \"created_at\": \"2026-01-15T10:00:00Z\",\n      \"updated_at\": \"2026-01-15T10:00:05Z\",\n      \"location_id\": \"L1234567890\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eb5748f9-ccdb-4d49-ac5d-878a82a9c603",
+          "name": "Block Square Create Payment",
+          "request": {
+            "name": "Block Square Create Payment",
+            "description": {
+              "content": "Creates a payment using the provided source.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source_id\": \"<string>\",\n  \"idempotency_key\": \"<string>\",\n  \"amount_money\": {\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  },\n  \"location_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "86cd428d-a296-4fea-a9b9-a1161bbfa26e",
+              "name": "Payment created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source_id\": \"cnon:card-nonce-ok\",\n  \"idempotency_key\": \"7b0f3ec5-086a-4871-8f13-3c81b3875218\",\n  \"amount_money\": {\n    \"amount\": 1500,\n    \"currency\": \"USD\"\n  },\n  \"location_id\": \"L1234567890\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"payment\": {\n    \"id\": \"GQTFp1ZlXdpoW4o6eGiZhbjosiDFf\",\n    \"status\": \"COMPLETED\",\n    \"source_type\": \"CARD\",\n    \"amount_money\": {\n      \"amount\": 1500,\n      \"currency\": \"USD\"\n    },\n    \"total_money\": {\n      \"amount\": 1500,\n      \"currency\": \"USD\"\n    },\n    \"created_at\": \"2026-01-15T10:00:00Z\",\n    \"updated_at\": \"2026-01-15T10:00:05Z\",\n    \"location_id\": \"L1234567890\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "94a4cd79-f5f8-4d1d-8a8c-def601d4014e",
+          "name": "Block Square Get Payment",
+          "request": {
+            "name": "Block Square Get Payment",
+            "description": {
+              "content": "Retrieves details for a specific payment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                ":payment_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "payment_id",
+                  "description": "(Required) A unique ID for the desired payment."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d087f067-8d11-41b9-9f13-a9c0a165e9ad",
+              "name": "Payment retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    ":payment_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment_id",
+                      "description": "(Required) A unique ID for the desired payment."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"payment\": {\n    \"id\": \"GQTFp1ZlXdpoW4o6eGiZhbjosiDFf\",\n    \"status\": \"COMPLETED\",\n    \"source_type\": \"CARD\",\n    \"amount_money\": {\n      \"amount\": 1500,\n      \"currency\": \"USD\"\n    },\n    \"total_money\": {\n      \"amount\": 1500,\n      \"currency\": \"USD\"\n    },\n    \"created_at\": \"2026-01-15T10:00:00Z\",\n    \"updated_at\": \"2026-01-15T10:00:05Z\",\n    \"location_id\": \"L1234567890\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://connect.squareup.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "352b86ce-5aed-4018-b27f-1d6741df51be",
+    "name": "Square Catalog Payments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Square API provides payment processing, commerce, customer management, and business operations capabilities for sellers, developers, and merchants. Supports point-of-sale, ecommerce, invoicing, loyalty, gift cards, and more.\n\nContact Support:\n Name: Square Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

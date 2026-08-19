@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Square Catalog Merchants API",
+    "version": "2026-01-22"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Merchants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Block Square List Locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.squareup.com/v2/locations"
+          },
+          "docs": "Provides details about all of the seller's locations, including those with an inactive status."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

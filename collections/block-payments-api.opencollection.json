@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Square Catalog Payments API",
+    "version": "2026-01-22"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Block Square List Payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.squareup.com/v2/payments",
+            "params": [
+              {
+                "name": "begin_time",
+                "value": "",
+                "type": "query",
+                "description": "The start of the time range to retrieve payments for."
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query",
+                "description": "The end of the time range to retrieve payments for."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "A pagination cursor returned by a previous call."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to be returned."
+              },
+              {
+                "name": "location_id",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to the location supplied."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of payments taken by the account making the request."
+        },
+        {
+          "info": {
+            "name": "Block Square Create Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.squareup.com/v2/payments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a payment using the provided source."
+        },
+        {
+          "info": {
+            "name": "Block Square Get Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.squareup.com/v2/payments/:payment_id",
+            "params": [
+              {
+                "name": "payment_id",
+                "value": "",
+                "type": "path",
+                "description": "A unique ID for the desired payment."
+              }
+            ]
+          },
+          "docs": "Retrieves details for a specific payment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

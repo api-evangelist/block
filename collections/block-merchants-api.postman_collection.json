@@ -1,0 +1,119 @@
+{
+  "item": [
+    {
+      "id": "a19afad3-7c89-4916-8322-744c31ddaaa6",
+      "name": "Merchants",
+      "description": {
+        "content": "Merchant and location data",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9aa0baac-c7c7-4eb4-a351-e61f37d7ae1a",
+          "name": "Block Square List Locations",
+          "request": {
+            "name": "Block Square List Locations",
+            "description": {
+              "content": "Provides details about all of the seller's locations, including those with an inactive status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "locations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1fe0d929-6fee-4cfb-b10b-3ba0d34fd2c1",
+              "name": "Locations retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"locations\": [\n    {\n      \"id\": \"L1234567890\",\n      \"name\": \"Main Street Store\",\n      \"address\": {\n        \"address_line_1\": \"1234 Main St\",\n        \"locality\": \"San Francisco\",\n        \"administrative_district_level_1\": \"CA\",\n        \"postal_code\": \"94105\",\n        \"country\": \"US\"\n      },\n      \"timezone\": \"America/Los_Angeles\",\n      \"currency\": \"USD\",\n      \"status\": \"ACTIVE\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://connect.squareup.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "391bca35-1a4b-499f-a772-2e350900fe9d",
+    "name": "Square Catalog Merchants API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Square API provides payment processing, commerce, customer management, and business operations capabilities for sellers, developers, and merchants. Supports point-of-sale, ecommerce, invoicing, loyalty, gift cards, and more.\n\nContact Support:\n Name: Square Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

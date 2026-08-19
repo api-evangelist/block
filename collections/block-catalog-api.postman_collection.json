@@ -1,0 +1,143 @@
+{
+  "item": [
+    {
+      "id": "3d473170-2553-497a-b0c7-7908de1af657",
+      "name": "Catalog",
+      "description": {
+        "content": "Manage product catalog",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e7c28319-892b-4fd6-b052-7f8992df4bfa",
+          "name": "Block Square List Catalog",
+          "request": {
+            "name": "Block Square List Catalog",
+            "description": {
+              "content": "Returns a list of all CatalogObjects of the specified types in the catalog.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalog",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "types",
+                  "value": "<string>",
+                  "description": "Comma-separated list of CatalogObject types to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ef60ffdf-3631-4658-b031-a0f8637e45c0",
+              "name": "Catalog items retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"objects\": [\n    {\n      \"type\": \"ITEM\",\n      \"id\": \"RYOIMONN5KRSWHVY7TNKH\",\n      \"version\": 1554399346626,\n      \"item_data\": {\n        \"name\": \"Caramel Macchiato\",\n        \"description\": \"Hot or iced espresso beverage\",\n        \"variations\": [\n          {\n            \"type\": \"ITEM_VARIATION\",\n            \"id\": \"OTYDX45SPG7LJQUVSPOEH6AQ\",\n            \"item_variation_data\": {\n              \"name\": \"Regular\",\n              \"price_money\": {\n                \"amount\": 550,\n                \"currency\": \"USD\"\n              }\n            }\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://connect.squareup.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8abc263d-3057-48f1-9ecd-58021c2fc2bf",
+    "name": "Square Catalog API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Square API provides payment processing, commerce, customer management, and business operations capabilities for sellers, developers, and merchants. Supports point-of-sale, ecommerce, invoicing, loyalty, gift cards, and more.\n\nContact Support:\n Name: Square Developer Support",
+      "type": "text/plain"
+    }
+  }
+}
