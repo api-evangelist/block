@@ -8,6 +8,14 @@ description: Block, Inc. is a global technology company building economic empowe
 tags:
 - Commerce
 - Cryptocurrency
+- E-Commerce
+- Fintech
+- Payments
+- Point-of-Sale
+- Square
+tags_raw:
+- Commerce
+- Cryptocurrency
 - eCommerce
 - Fintech
 - Payments
@@ -96,6 +104,8 @@ apis:
   description: Create and manage orders
   humanURL: https://developer.squareup.com/
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
