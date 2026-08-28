@@ -10,8 +10,11 @@ info:
     on the order and payment writes.
   version: 1.0.0
 sourceDescriptions:
-- name: squareApi
-  url: ../openapi/block-square-api-openapi.yaml
+- name: ordersApi
+  url: ../openapi/block-orders-api-openapi.yml
+  type: openapi
+- name: paymentsApi
+  url: ../openapi/block-payments-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: customer-order-then-pay

@@ -10,8 +10,14 @@ info:
     on the customer and payment writes.
   version: 1.0.0
 sourceDescriptions:
-- name: squareApi
-  url: ../openapi/block-square-api-openapi.yaml
+- name: customersApi
+  url: ../openapi/block-customers-api-openapi.yml
+  type: openapi
+- name: merchantsApi
+  url: ../openapi/block-merchants-api-openapi.yml
+  type: openapi
+- name: paymentsApi
+  url: ../openapi/block-payments-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: onboard-customer-and-charge

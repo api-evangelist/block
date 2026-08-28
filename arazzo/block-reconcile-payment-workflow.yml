@@ -9,8 +9,8 @@ info:
     inlines its bearer token and query parameters.
   version: 1.0.0
 sourceDescriptions:
-- name: squareApi
-  url: ../openapi/block-square-api-openapi.yaml
+- name: paymentsApi
+  url: ../openapi/block-payments-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: reconcile-payment
