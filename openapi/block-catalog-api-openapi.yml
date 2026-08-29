@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Square Catalog API
   description: Square API provides payment processing, commerce, customer management, and business operations capabilities for sellers, developers, and merchants. Supports point-of-sale, ecommerce, invoicing, loyalty, gift cards, and more.
@@ -72,6 +72,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ListCatalogResponse:
+      type: object
+      properties:
+        objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/CatalogObject'
+        cursor:
+          type: string
     CatalogObject:
       type: object
       description: The wrapper object for the catalog entries of a given object type.
@@ -98,15 +107,6 @@ components:
             description:
               type: string
               example: Hot or iced espresso beverage
-    ListCatalogResponse:
-      type: object
-      properties:
-        objects:
-          type: array
-          items:
-            $ref: '#/components/schemas/CatalogObject'
-        cursor:
-          type: string
   securitySchemes:
     BearerAuth:
       type: http

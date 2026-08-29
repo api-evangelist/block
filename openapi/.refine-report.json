@@ -17,6 +17,13 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "block-catalog-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "block-customers-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "block-merchants-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "block-orders-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "block-payments-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

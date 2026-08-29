@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Square Catalog Orders API
   description: Square API provides payment processing, commerce, customer management, and business operations capabilities for sellers, developers, and merchants. Supports point-of-sale, ecommerce, invoicing, loyalty, gift cards, and more.
@@ -76,33 +76,11 @@ paths:
         dispatcher: SCRIPT
 components:
   schemas:
-    CreateOrderRequest:
-      type: object
-      required:
-      - order
-      properties:
-        idempotency_key:
-          type: string
-          example: 8193148c-9586-11e6-99f9-28cfe91d33d5
-        order:
-          $ref: '#/components/schemas/Order'
     CreateOrderResponse:
       type: object
       properties:
         order:
           $ref: '#/components/schemas/Order'
-    Money:
-      type: object
-      description: Represents an amount of money in a specific currency.
-      properties:
-        amount:
-          type: integer
-          description: Amount in the smallest denomination of the currency.
-          example: 1500
-        currency:
-          type: string
-          description: 3-letter ISO 4217 currency code.
-          example: USD
     Order:
       type: object
       description: Represents an order for products and services.
@@ -133,6 +111,28 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:05:00Z'
+    Money:
+      type: object
+      description: Represents an amount of money in a specific currency.
+      properties:
+        amount:
+          type: integer
+          description: Amount in the smallest denomination of the currency.
+          example: 1500
+        currency:
+          type: string
+          description: 3-letter ISO 4217 currency code.
+          example: USD
+    CreateOrderRequest:
+      type: object
+      required:
+      - order
+      properties:
+        idempotency_key:
+          type: string
+          example: 8193148c-9586-11e6-99f9-28cfe91d33d5
+        order:
+          $ref: '#/components/schemas/Order'
   securitySchemes:
     BearerAuth:
       type: http
