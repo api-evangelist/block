@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Square Catalog Orders API
+  title: Square Orders API
   description: Square API provides payment processing, commerce, customer management, and business operations capabilities for sellers, developers, and merchants. Supports point-of-sale, ecommerce, invoicing, loyalty, gift cards, and more.
   version: 2026-01-22
   contact:
@@ -76,11 +76,6 @@ paths:
         dispatcher: SCRIPT
 components:
   schemas:
-    CreateOrderResponse:
-      type: object
-      properties:
-        order:
-          $ref: '#/components/schemas/Order'
     Order:
       type: object
       description: Represents an order for products and services.
@@ -111,6 +106,21 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:05:00Z'
+    CreateOrderRequest:
+      type: object
+      required:
+      - order
+      properties:
+        idempotency_key:
+          type: string
+          example: 8193148c-9586-11e6-99f9-28cfe91d33d5
+        order:
+          $ref: '#/components/schemas/Order'
+    CreateOrderResponse:
+      type: object
+      properties:
+        order:
+          $ref: '#/components/schemas/Order'
     Money:
       type: object
       description: Represents an amount of money in a specific currency.
@@ -123,16 +133,6 @@ components:
           type: string
           description: 3-letter ISO 4217 currency code.
           example: USD
-    CreateOrderRequest:
-      type: object
-      required:
-      - order
-      properties:
-        idempotency_key:
-          type: string
-          example: 8193148c-9586-11e6-99f9-28cfe91d33d5
-        order:
-          $ref: '#/components/schemas/Order'
   securitySchemes:
     BearerAuth:
       type: http

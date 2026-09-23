@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Square Catalog Customers API
+  title: Square Customers API
   description: Square API provides payment processing, commerce, customer management, and business operations capabilities for sellers, developers, and merchants. Supports point-of-sale, ecommerce, invoicing, loyalty, gift cards, and more.
   version: 2026-01-22
   contact:
@@ -111,6 +111,39 @@ paths:
         dispatcher: SCRIPT
 components:
   schemas:
+    CreateCustomerResponse:
+      type: object
+      properties:
+        customer:
+          $ref: '#/components/schemas/Customer'
+    ListCustomersResponse:
+      type: object
+      properties:
+        customers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+        cursor:
+          type: string
+    CreateCustomerRequest:
+      type: object
+      properties:
+        idempotency_key:
+          type: string
+          example: 916f88d4-ba1d-11ea-b3de-0242ac130004
+        given_name:
+          type: string
+          example: Amelia
+        family_name:
+          type: string
+          example: Earhart
+        email_address:
+          type: string
+          format: email
+          example: Amelia.Earhart@example.com
+        phone_number:
+          type: string
+          example: '+11234567890'
     Customer:
       type: object
       description: Represents a customer profile in a Square seller account.
@@ -144,39 +177,6 @@ components:
           type: string
           format: date-time
           example: '2016-03-23T20:21:55Z'
-    CreateCustomerResponse:
-      type: object
-      properties:
-        customer:
-          $ref: '#/components/schemas/Customer'
-    CreateCustomerRequest:
-      type: object
-      properties:
-        idempotency_key:
-          type: string
-          example: 916f88d4-ba1d-11ea-b3de-0242ac130004
-        given_name:
-          type: string
-          example: Amelia
-        family_name:
-          type: string
-          example: Earhart
-        email_address:
-          type: string
-          format: email
-          example: Amelia.Earhart@example.com
-        phone_number:
-          type: string
-          example: '+11234567890'
-    ListCustomersResponse:
-      type: object
-      properties:
-        customers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Customer'
-        cursor:
-          type: string
   securitySchemes:
     BearerAuth:
       type: http

@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Square Catalog Merchants API
+  title: Square Merchants API
   description: Square API provides payment processing, commerce, customer management, and business operations capabilities for sellers, developers, and merchants. Supports point-of-sale, ecommerce, invoicing, loyalty, gift cards, and more.
   version: 2026-01-22
   contact:
