@@ -182,49 +182,6 @@ paths:
         dispatcherRules: payment_id
 components:
   schemas:
-    GetPaymentResponse:
-      type: object
-      properties:
-        payment:
-          $ref: '#/components/schemas/Payment'
-    CreatePaymentRequest:
-      type: object
-      required:
-      - source_id
-      - idempotency_key
-      - amount_money
-      properties:
-        source_id:
-          type: string
-          description: Payment source (card nonce, token, etc.).
-          example: cnon:card-nonce-ok
-        idempotency_key:
-          type: string
-          description: Unique key to ensure idempotency.
-          example: 7b0f3ec5-086a-4871-8f13-3c81b3875218
-        amount_money:
-          $ref: '#/components/schemas/Money'
-        location_id:
-          type: string
-          description: ID of the accepting location.
-          example: L1234567890
-    Money:
-      type: object
-      description: Represents an amount of money in a specific currency.
-      properties:
-        amount:
-          type: integer
-          description: Amount in the smallest denomination of the currency.
-          example: 1500
-        currency:
-          type: string
-          description: 3-letter ISO 4217 currency code.
-          example: USD
-    CreatePaymentResponse:
-      type: object
-      properties:
-        payment:
-          $ref: '#/components/schemas/Payment'
     ListPaymentsResponse:
       type: object
       properties:
@@ -235,6 +192,16 @@ components:
         cursor:
           type: string
           description: Pagination cursor for next page.
+    GetPaymentResponse:
+      type: object
+      properties:
+        payment:
+          $ref: '#/components/schemas/Payment'
+    CreatePaymentResponse:
+      type: object
+      properties:
+        payment:
+          $ref: '#/components/schemas/Payment'
     Payment:
       type: object
       description: Represents a payment processed by Square.
@@ -269,6 +236,39 @@ components:
           format: date-time
           description: The timestamp of when the payment was last updated.
           example: '2026-01-15T10:00:05Z'
+    CreatePaymentRequest:
+      type: object
+      required:
+      - source_id
+      - idempotency_key
+      - amount_money
+      properties:
+        source_id:
+          type: string
+          description: Payment source (card nonce, token, etc.).
+          example: cnon:card-nonce-ok
+        idempotency_key:
+          type: string
+          description: Unique key to ensure idempotency.
+          example: 7b0f3ec5-086a-4871-8f13-3c81b3875218
+        amount_money:
+          $ref: '#/components/schemas/Money'
+        location_id:
+          type: string
+          description: ID of the accepting location.
+          example: L1234567890
+    Money:
+      type: object
+      description: Represents an amount of money in a specific currency.
+      properties:
+        amount:
+          type: integer
+          description: Amount in the smallest denomination of the currency.
+          example: 1500
+        currency:
+          type: string
+          description: 3-letter ISO 4217 currency code.
+          example: USD
   securitySchemes:
     BearerAuth:
       type: http

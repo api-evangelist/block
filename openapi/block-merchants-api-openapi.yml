@@ -58,13 +58,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ListLocationsResponse:
-      type: object
-      properties:
-        locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Location'
     Location:
       type: object
       description: Represents one of a business's seller locations.
@@ -89,6 +82,13 @@ components:
           type: string
           description: The status of the location (ACTIVE, INACTIVE).
           example: ACTIVE
+    ListLocationsResponse:
+      type: object
+      properties:
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
   securitySchemes:
     BearerAuth:
       type: http
