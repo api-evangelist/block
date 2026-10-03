@@ -111,20 +111,6 @@ paths:
         dispatcher: SCRIPT
 components:
   schemas:
-    CreateCustomerResponse:
-      type: object
-      properties:
-        customer:
-          $ref: '#/components/schemas/Customer'
-    ListCustomersResponse:
-      type: object
-      properties:
-        customers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Customer'
-        cursor:
-          type: string
     Customer:
       type: object
       description: Represents a customer profile in a Square seller account.
@@ -158,6 +144,20 @@ components:
           type: string
           format: date-time
           example: '2016-03-23T20:21:55Z'
+    CreateCustomerResponse:
+      type: object
+      properties:
+        customer:
+          $ref: '#/components/schemas/Customer'
+    ListCustomersResponse:
+      type: object
+      properties:
+        customers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+        cursor:
+          type: string
     CreateCustomerRequest:
       type: object
       properties:
