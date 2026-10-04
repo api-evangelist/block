@@ -144,20 +144,6 @@ components:
           type: string
           format: date-time
           example: '2016-03-23T20:21:55Z'
-    CreateCustomerResponse:
-      type: object
-      properties:
-        customer:
-          $ref: '#/components/schemas/Customer'
-    ListCustomersResponse:
-      type: object
-      properties:
-        customers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Customer'
-        cursor:
-          type: string
     CreateCustomerRequest:
       type: object
       properties:
@@ -177,6 +163,20 @@ components:
         phone_number:
           type: string
           example: '+11234567890'
+    ListCustomersResponse:
+      type: object
+      properties:
+        customers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+        cursor:
+          type: string
+    CreateCustomerResponse:
+      type: object
+      properties:
+        customer:
+          $ref: '#/components/schemas/Customer'
   securitySchemes:
     BearerAuth:
       type: http

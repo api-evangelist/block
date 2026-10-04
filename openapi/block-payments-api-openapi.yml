@@ -182,23 +182,11 @@ paths:
         dispatcherRules: payment_id
 components:
   schemas:
-    GetPaymentResponse:
+    CreatePaymentResponse:
       type: object
       properties:
         payment:
           $ref: '#/components/schemas/Payment'
-    Money:
-      type: object
-      description: Represents an amount of money in a specific currency.
-      properties:
-        amount:
-          type: integer
-          description: Amount in the smallest denomination of the currency.
-          example: 1500
-        currency:
-          type: string
-          description: 3-letter ISO 4217 currency code.
-          example: USD
     CreatePaymentRequest:
       type: object
       required:
@@ -220,6 +208,28 @@ components:
           type: string
           description: ID of the accepting location.
           example: L1234567890
+    ListPaymentsResponse:
+      type: object
+      properties:
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payment'
+        cursor:
+          type: string
+          description: Pagination cursor for next page.
+    Money:
+      type: object
+      description: Represents an amount of money in a specific currency.
+      properties:
+        amount:
+          type: integer
+          description: Amount in the smallest denomination of the currency.
+          example: 1500
+        currency:
+          type: string
+          description: 3-letter ISO 4217 currency code.
+          example: USD
     Payment:
       type: object
       description: Represents a payment processed by Square.
@@ -254,21 +264,11 @@ components:
           format: date-time
           description: The timestamp of when the payment was last updated.
           example: '2026-01-15T10:00:05Z'
-    CreatePaymentResponse:
+    GetPaymentResponse:
       type: object
       properties:
         payment:
           $ref: '#/components/schemas/Payment'
-    ListPaymentsResponse:
-      type: object
-      properties:
-        payments:
-          type: array
-          items:
-            $ref: '#/components/schemas/Payment'
-        cursor:
-          type: string
-          description: Pagination cursor for next page.
   securitySchemes:
     BearerAuth:
       type: http

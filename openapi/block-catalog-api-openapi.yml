@@ -72,6 +72,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ListCatalogResponse:
+      type: object
+      properties:
+        objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/CatalogObject'
+        cursor:
+          type: string
     CatalogObject:
       type: object
       description: The wrapper object for the catalog entries of a given object type.
@@ -98,15 +107,6 @@ components:
             description:
               type: string
               example: Hot or iced espresso beverage
-    ListCatalogResponse:
-      type: object
-      properties:
-        objects:
-          type: array
-          items:
-            $ref: '#/components/schemas/CatalogObject'
-        cursor:
-          type: string
   securitySchemes:
     BearerAuth:
       type: http
