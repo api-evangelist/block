@@ -132,6 +132,12 @@ apis:
   - type: Vocabulary
     url: vocabulary/block-vocabulary.yaml
 common:
+  - type: Plans
+    url: plans/block-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/block-rate-limits.yml
+  - type: FinOps
+    url: finops/block-finops.yml
   - type: Subsidiary
     name: Cash App
     url: https://cash.app/
