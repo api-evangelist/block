@@ -1,5 +1,5 @@
 generated: '2026-10-12'
-method: none
+method: searched
 source:
 - https://zapier.com/apps/block/integrations
 - https://n8n.io/integrations/block/
@@ -9,8 +9,29 @@ checked:
 - https://composio.dev/toolkits/block
 - https://monid.ai/tools/block
 - https://n8n.io/integrations/block/
+- https://www.dfs.ny.gov/apps_and_licensing/virtual_currency_businesses
 - https://zapier.com/apps/block/integrations
 summary: null
 marketplace_apps: []
-edges: []
+edges:
+- partner_name: NYDFS (New York)
+  partner: null
+  type: contract
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.dfs.ny.gov/apps_and_licensing/virtual_currency_businesses
+  contract_reference:
+    register: NYDFS virtual currency licensees
+    spec_file: null
+    register_snapshot: https://web.archive.org/web/20261010154817/https://www.dfs.ny.gov/apps_and_licensing/virtual_currency_businesses
+    registered_name: Block, Inc., f/k/a Square, Inc.
+    role: bitlicense+money-transmitter
+    granted: 2018-06
+    evidence: https://block.xyz/legal
+    matched_by: verified-legal-name
+    detected_by: sweep-crypto.py
+    detected: '2026-10-13'
+  detected_by: sweep-crypto.py
+  first_seen: '2026-10-13'
 templates: []
