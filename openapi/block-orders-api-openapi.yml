@@ -76,18 +76,11 @@ paths:
         dispatcher: SCRIPT
 components:
   schemas:
-    Money:
+    CreateOrderResponse:
       type: object
-      description: Represents an amount of money in a specific currency.
       properties:
-        amount:
-          type: integer
-          description: Amount in the smallest denomination of the currency.
-          example: 1500
-        currency:
-          type: string
-          description: 3-letter ISO 4217 currency code.
-          example: USD
+        order:
+          $ref: '#/components/schemas/Order'
     Order:
       type: object
       description: Represents an order for products and services.
@@ -128,11 +121,18 @@ components:
           example: 8193148c-9586-11e6-99f9-28cfe91d33d5
         order:
           $ref: '#/components/schemas/Order'
-    CreateOrderResponse:
+    Money:
       type: object
+      description: Represents an amount of money in a specific currency.
       properties:
-        order:
-          $ref: '#/components/schemas/Order'
+        amount:
+          type: integer
+          description: Amount in the smallest denomination of the currency.
+          example: 1500
+        currency:
+          type: string
+          description: 3-letter ISO 4217 currency code.
+          example: USD
   securitySchemes:
     BearerAuth:
       type: http

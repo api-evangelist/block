@@ -111,6 +111,15 @@ paths:
         dispatcher: SCRIPT
 components:
   schemas:
+    ListCustomersResponse:
+      type: object
+      properties:
+        customers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+        cursor:
+          type: string
     Customer:
       type: object
       description: Represents a customer profile in a Square seller account.
@@ -163,15 +172,6 @@ components:
         phone_number:
           type: string
           example: '+11234567890'
-    ListCustomersResponse:
-      type: object
-      properties:
-        customers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Customer'
-        cursor:
-          type: string
     CreateCustomerResponse:
       type: object
       properties:
