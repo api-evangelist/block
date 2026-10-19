@@ -1,0 +1,12 @@
+{
+ "url": "https://raw.githubusercontent.com/square/connect-api-specification/master/api.json",
+ "final": "https://raw.githubusercontent.com/square/connect-api-specification/master/api.json",
+ "status": 200,
+ "content_type": "text/plain; charset=utf-8",
+ "bytes": 3273134,
+ "sha256": "8f65460732e19d7445f7a34d8a9df09163db45273df5176a1cc794890ef591fb",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "re-archived: the provider's current document replaced a stale archive (roadmap#793); the old files are in openapi/_superseded/2026-10-19-stale"
+}

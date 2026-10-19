@@ -131,6 +131,351 @@ apis:
     url: rules/block-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/block-vocabulary.yaml
+- aid: block:block-bookingcustomattributes-api
+  name: Block Booking Custom Attributes API
+  description: The BookingCustomAttributes API from Block — 6 operation(s) for bookingcustomattributes.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - BookingCustomAttributes
+  properties:
+  - type: OpenAPI
+    url: openapi/block-bookingcustomattributes-api-openapi.yml
+- aid: block:block-bookings-api
+  name: Block Bookings API
+  description: The Bookings API from Block — 11 operation(s) for bookings.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Bookings
+  properties:
+  - type: OpenAPI
+    url: openapi/block-bookings-api-openapi.yml
+- aid: block:block-cards-api
+  name: Block Cards API
+  description: The Cards API from Block — 3 operation(s) for cards.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Cards
+  properties:
+  - type: OpenAPI
+    url: openapi/block-cards-api-openapi.yml
+- aid: block:block-channels-api
+  name: Block Channels API
+  description: The Channels API from Block — 3 operation(s) for channels.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Channels
+  properties:
+  - type: OpenAPI
+    url: openapi/block-channels-api-openapi.yml
+- aid: block:block-checkout-api
+  name: Block Checkout API
+  description: The Checkout API from Block — 5 operation(s) for checkout.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Checkout
+  properties:
+  - type: OpenAPI
+    url: openapi/block-checkout-api-openapi.yml
+- aid: block:block-customercustomattributes-api
+  name: Block Customer Custom Attributes API
+  description: >-
+    The CustomerCustomAttributes API from Block — 5 operation(s) for customercustomattributes.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - CustomerCustomAttributes
+  properties:
+  - type: OpenAPI
+    url: openapi/block-customercustomattributes-api-openapi.yml
+- aid: block:block-devices-api
+  name: Block Devices API
+  description: The Devices API from Block — 4 operation(s) for devices.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/block-devices-api-openapi.yml
+- aid: block:block-disputes-api
+  name: Block Disputes API
+  description: The Disputes API from Block — 8 operation(s) for disputes.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Disputes
+  properties:
+  - type: OpenAPI
+    url: openapi/block-disputes-api-openapi.yml
+- aid: block:block-employees-api
+  name: Block Employees API
+  description: The Employees API from Block — 2 operation(s) for employees.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Employees
+  properties:
+  - type: OpenAPI
+    url: openapi/block-employees-api-openapi.yml
+- aid: block:block-events-api
+  name: Block Events API
+  description: The Events API from Block — 4 operation(s) for events.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/block-events-api-openapi.yml
+- aid: block:block-giftcardactivities-api
+  name: Block Gift Card Activities API
+  description: The GiftCardActivities API from Block — 1 operation(s) for giftcardactivities.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - GiftCardActivities
+  properties:
+  - type: OpenAPI
+    url: openapi/block-giftcardactivities-api-openapi.yml
+- aid: block:block-inventory-api
+  name: Block Inventory API
+  description: The Inventory API from Block — 19 operation(s) for inventory.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Inventory
+  properties:
+  - type: OpenAPI
+    url: openapi/block-inventory-api-openapi.yml
+- aid: block:block-invoices-api
+  name: Block Invoices API
+  description: The Invoices API from Block — 7 operation(s) for invoices.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Invoices
+  properties:
+  - type: OpenAPI
+    url: openapi/block-invoices-api-openapi.yml
+- aid: block:block-labor-api
+  name: Block Labor API
+  description: The Labor API from Block — 19 operation(s) for labor.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Labor
+  properties:
+  - type: OpenAPI
+    url: openapi/block-labor-api-openapi.yml
+- aid: block:block-locationcustomattributes-api
+  name: Block Location Custom Attributes API
+  description: >-
+    The LocationCustomAttributes API from Block — 6 operation(s) for locationcustomattributes.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - LocationCustomAttributes
+  properties:
+  - type: OpenAPI
+    url: openapi/block-locationcustomattributes-api-openapi.yml
+- aid: block:block-locations-api
+  name: Block Locations API
+  description: The Locations API from Block — 2 operation(s) for locations.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Locations
+  properties:
+  - type: OpenAPI
+    url: openapi/block-locations-api-openapi.yml
+- aid: block:block-loyalty-api
+  name: Block Loyalty API
+  description: The Loyalty API from Block — 16 operation(s) for loyalty.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Loyalty
+  properties:
+  - type: OpenAPI
+    url: openapi/block-loyalty-api-openapi.yml
+- aid: block:block-merchantcustomattributes-api
+  name: Block Merchant Custom Attributes API
+  description: >-
+    The MerchantCustomAttributes API from Block — 6 operation(s) for merchantcustomattributes.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - MerchantCustomAttributes
+  properties:
+  - type: OpenAPI
+    url: openapi/block-merchantcustomattributes-api-openapi.yml
+- aid: block:block-oauth-api
+  name: Block OAuth API
+  description: The OAuth API from Block — 3 operation(s) for oauth.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - OAuth
+  properties:
+  - type: OpenAPI
+    url: openapi/block-oauth-api-openapi.yml
+- aid: block:block-ordercustomattributes-api
+  name: Block Order Custom Attributes API
+  description: The OrderCustomAttributes API from Block — 6 operation(s) for ordercustomattributes.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - OrderCustomAttributes
+  properties:
+  - type: OpenAPI
+    url: openapi/block-ordercustomattributes-api-openapi.yml
+- aid: block:block-payouts-api
+  name: Block Payouts API
+  description: The Payouts API from Block — 3 operation(s) for payouts.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Payouts
+  properties:
+  - type: OpenAPI
+    url: openapi/block-payouts-api-openapi.yml
+- aid: block:block-refunds-api
+  name: Block Refunds API
+  description: The Refunds API from Block — 2 operation(s) for refunds.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Refunds
+  properties:
+  - type: OpenAPI
+    url: openapi/block-refunds-api-openapi.yml
+- aid: block:block-sites-api
+  name: Block Sites API
+  description: The Sites API from Block — 1 operation(s) for sites.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Sites
+  properties:
+  - type: OpenAPI
+    url: openapi/block-sites-api-openapi.yml
+- aid: block:block-snippets-api
+  name: Block Snippets API
+  description: The Snippets API from Block — 1 operation(s) for snippets.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Snippets
+  properties:
+  - type: OpenAPI
+    url: openapi/block-snippets-api-openapi.yml
+- aid: block:block-subscriptions-api
+  name: Block Subscriptions API
+  description: The Subscriptions API from Block — 11 operation(s) for subscriptions.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/block-subscriptions-api-openapi.yml
+- aid: block:block-team-api
+  name: Block Team API
+  description: The Team API from Block — 8 operation(s) for team.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Team
+  properties:
+  - type: OpenAPI
+    url: openapi/block-team-api-openapi.yml
+- aid: block:block-terminal-api
+  name: Block Terminal API
+  description: The Terminal API from Block — 15 operation(s) for terminal.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Terminal
+  properties:
+  - type: OpenAPI
+    url: openapi/block-terminal-api-openapi.yml
+- aid: block:block-transactions-api
+  name: Block Transactions API
+  description: The Transactions API from Block — 2 operation(s) for transactions.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/block-transactions-api-openapi.yml
+- aid: block:block-transferorder-api
+  name: Block Transfer Order API
+  description: The TransferOrder API from Block — 6 operation(s) for transferorder.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - TransferOrder
+  properties:
+  - type: OpenAPI
+    url: openapi/block-transferorder-api-openapi.yml
+- aid: block:block-v1transactions-api
+  name: Block V1Transactions API
+  description: The V1Transactions API from Block — 2 operation(s) for v1transactions.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - V1Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/block-v1transactions-api-openapi.yml
+- aid: block:block-vendors-api
+  name: Block Vendors API
+  description: The Vendors API from Block — 6 operation(s) for vendors.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Vendors
+  properties:
+  - type: OpenAPI
+    url: openapi/block-vendors-api-openapi.yml
+- aid: block:block-apple-pay-api
+  name: Block Apple Pay API
+  description: The Apple Pay API from Block — 1 operation(s) for apple pay.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Apple Pay
+  properties:
+  - type: OpenAPI
+    url: openapi/block-apple-pay-api-openapi.yml
+- aid: block:block-bank-accounts-api
+  name: Block Bank Accounts API
+  description: The Bank Accounts API from Block — 4 operation(s) for bank accounts.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Bank Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/block-bank-accounts-api-openapi.yml
+- aid: block:block-cash-drawers-api
+  name: Block Cash Drawers API
+  description: The Cash Drawers API from Block — 3 operation(s) for cash drawers.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Cash Drawers
+  properties:
+  - type: OpenAPI
+    url: openapi/block-cash-drawers-api-openapi.yml
+- aid: block:block-customer-groups-api
+  name: Block Customer Groups API
+  description: The Customer Groups API from Block — 2 operation(s) for customer groups.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Customer Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/block-customer-groups-api-openapi.yml
+- aid: block:block-customer-segments-api
+  name: Block Customer Segments API
+  description: The Customer Segments API from Block — 2 operation(s) for customer segments.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Customer Segments
+  properties:
+  - type: OpenAPI
+    url: openapi/block-customer-segments-api-openapi.yml
+- aid: block:block-gift-cards-api
+  name: Block Gift Cards API
+  description: The Gift Cards API from Block — 6 operation(s) for gift cards.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Gift Cards
+  properties:
+  - type: OpenAPI
+    url: openapi/block-gift-cards-api-openapi.yml
+- aid: block:block-webhook-subscriptions-api
+  name: Block Webhook Subscriptions API
+  description: The Webhook Subscriptions API from Block — 5 operation(s) for webhook subscriptions.
+  humanURL: https://developer.squareup.com/
+  tags:
+  - Webhook Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/block-webhook-subscriptions-api-openapi.yml
 common:
   - type: Plans
     url: plans/block-plans-pricing.yml
