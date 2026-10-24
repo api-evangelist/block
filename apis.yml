@@ -145,6 +145,8 @@ apis:
   description: The Bookings API from Block — 11 operation(s) for bookings.
   humanURL: https://developer.squareup.com/
   tags:
+  - Booking
+  tags_raw:
   - Bookings
   properties:
   - type: OpenAPI
@@ -218,6 +220,8 @@ apis:
   description: The Events API from Block — 4 operation(s) for events.
   humanURL: https://developer.squareup.com/
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -273,6 +277,8 @@ apis:
   description: The Locations API from Block — 2 operation(s) for locations.
   humanURL: https://developer.squareup.com/
   tags:
+  - Location
+  tags_raw:
   - Locations
   properties:
   - type: OpenAPI
@@ -301,6 +307,8 @@ apis:
   description: The OAuth API from Block — 3 operation(s) for oauth.
   humanURL: https://developer.squareup.com/
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI
@@ -355,6 +363,8 @@ apis:
   description: The Subscriptions API from Block — 11 operation(s) for subscriptions.
   humanURL: https://developer.squareup.com/
   tags:
+  - Subscription
+  tags_raw:
   - Subscriptions
   properties:
   - type: OpenAPI
@@ -382,6 +392,8 @@ apis:
   description: The Transactions API from Block — 2 operation(s) for transactions.
   humanURL: https://developer.squareup.com/
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
@@ -454,6 +466,8 @@ apis:
   description: The Customer Segments API from Block — 2 operation(s) for customer segments.
   humanURL: https://developer.squareup.com/
   tags:
+  - Customer > Segments
+  tags_raw:
   - Customer Segments
   properties:
   - type: OpenAPI
