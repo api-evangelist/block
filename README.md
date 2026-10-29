@@ -1,4 +1,4 @@
-# Block (block)
+# Block
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,140 +66,209 @@
 
 Block, Inc. is a global technology company building economic empowerment tools through a family of products including Square (commerce and payments), Cash App (personal finance and investing), Afterpay (buy now pay later), TIDAL (music streaming), and Spiral (open-source Bitcoin development). The Square API enables developers to build commerce applications with payment processing, order management, catalog, customer engagement, and business operations capabilities.
 
-**URL:** [https://www.block.xyz](https://www.block.xyz)
+**Areas:** Commerce · Cryptocurrency · E-Commerce · Fintech · Payments · Point-of-Sale · Square
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+## Block on APIs.io
 
-## Tags:
+Everything profiled for Block is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/block/](https://apis.io/providers/block/)** — or go straight to one of the APIs or properties below.
 
- - Commerce, Cryptocurrency, eCommerce, Fintech, Payments, Point Of Sale, Square
+### APIs (5)
 
-## Timestamps
+- [Block Catalog API](https://apis.io/apis/block/block-catalog-api/) — Manage product catalog
+- [Block Customers API](https://apis.io/apis/block/block-customers-api/) — Customer management and engagement
+- [Block Merchants API](https://apis.io/apis/block/block-merchants-api/) — Merchant and location data
+- [Block Orders API](https://apis.io/apis/block/block-orders-api/) — Create and manage orders
+- [Block Payments API](https://apis.io/apis/block/block-payments-api/) — Process and manage payments
 
-- **Created:** 2024-09-27
-- **Modified:** 2026-04-19
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Square API
-RESTful API for building commerce applications on the Square platform. Provides payment processing, order management, catalog management, customer profiles, loyalty programs, invoicing, and merchant operations.
+#### Arazzo workflows (13)
 
-**Human URL:** [https://developer.squareup.com/](https://developer.squareup.com/)
+Multi-step workflows that chain operations into a business task.
 
-#### Tags:
+- [Block Square Catalog Browse And Order Verify](https://apis.io/arazzos/block/block-catalog-browse-and-order-verify-workflow/)
+- [Block Square Catalog Driven Order](https://apis.io/arazzos/block/block-catalog-driven-order-workflow/)
+- [Block Square Catalog To Customer Order](https://apis.io/arazzos/block/block-catalog-to-customer-order-workflow/)
+- [Block Square Customer Order Then Pay](https://apis.io/arazzos/block/block-customer-order-then-pay-workflow/)
+- [Block Square Customer Payment Audit](https://apis.io/arazzos/block/block-customer-payment-audit-workflow/)
+- [Block Square Full Commerce Flow](https://apis.io/arazzos/block/block-full-commerce-flow-workflow/)
+- [Block Square Location First Sale](https://apis.io/arazzos/block/block-location-first-sale-workflow/)
+- [Block Square Location Payment Reconciliation](https://apis.io/arazzos/block/block-location-payment-reconciliation-workflow/)
+- [Block Square New Customer Checkout](https://apis.io/arazzos/block/block-new-customer-checkout-workflow/)
+- [Block Square Onboard Customer And Charge](https://apis.io/arazzos/block/block-onboard-customer-and-charge-workflow/)
+- [Block Square Reconcile Payment](https://apis.io/arazzos/block/block-reconcile-payment-workflow/)
+- [Block Square Returning Customer Checkout](https://apis.io/arazzos/block/block-returning-customer-checkout-workflow/)
+- [Block Square Take Payment And Verify](https://apis.io/arazzos/block/block-take-payment-and-verify-workflow/)
 
- - Commerce, eCommerce, Payments, Point Of Sale, Square
+#### MCP servers (1)
 
-#### Properties
+Model Context Protocol servers that expose the API to agents.
 
-- [Documentation](https://developer.squareup.com/docs)
-- [OpenAPI](openapi/block-square-api-openapi.yaml)
-- [NaftikoCapability](capabilities/block-square-commerce.yaml)
-- [SpectralRules](rules/block-spectral-rules.yml)
-- [Vocabulary](vocabulary/block-vocabulary.yaml)
+- [mcp](https://apis.io/servers/block/mcp/)
 
-## Common Properties
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Block Agentic Access](https://apis.io/agentic-access/block/block-agentic-access/)
+
+#### JSON Schema (4)
+
+The data models the API reads and writes.
+
+- [CatalogObject](https://apis.io/schemas/block/block-catalog-object/)
+- [Customer](https://apis.io/schemas/block/block-customer/)
+- [Order](https://apis.io/schemas/block/block-order/)
+- [Payment](https://apis.io/schemas/block/block-payment/)
+
+#### JSON Structure (4)
+
+Data models expressed in JSON Structure.
+
+- [Block Catalog Object Structure](https://apis.io/json-structure/block/block-catalog-object-structure/)
+- [Block Customer Structure](https://apis.io/json-structure/block/block-customer-structure/)
+- [Block Order Structure](https://apis.io/json-structure/block/block-order-structure/)
+- [Block Payment Structure](https://apis.io/json-structure/block/block-payment-structure/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Block Context](https://apis.io/jsonld/block/block-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Block Square Vocabulary](https://apis.io/vocabularies/block/block-vocabulary/)
+
+#### Examples (4)
+
+Example requests and responses.
+
+- [Block Catalog Object Example](https://apis.io/examples/block/block-catalog-object-example/)
+- [Block Customer Example](https://apis.io/examples/block/block-customer-example/)
+- [Block Order Example](https://apis.io/examples/block/block-order-example/)
+- [Block Payment Example](https://apis.io/examples/block/block-payment-example/)
+
+#### Collections (6)
+
+Postman and Open Collection request collections.
+
+- [Square Catalog API](https://apis.io/collections/block/open-block-catalog-api/)
+- [Square Catalog Customers API](https://apis.io/collections/block/open-block-customers-api/)
+- [Square Catalog Merchants API](https://apis.io/collections/block/open-block-merchants-api/)
+- [Square Catalog Orders API](https://apis.io/collections/block/open-block-orders-api/)
+- [Square Catalog Payments API](https://apis.io/collections/block/open-block-payments-api/)
+- [Square API](https://apis.io/collections/block/postman-block-square-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Block — jsonschema rules](https://apis.io/rules/block/block-jsonschema-spectral-rules/)
+- [Block API Rules](https://apis.io/rules/block/block-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Block Authentication](https://apis.io/security/block/block-authentication/)
+- [Block Domain Security](https://apis.io/security/block/block-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Block Scopes](https://apis.io/scopes/block/block-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Block Plans Pricing](https://apis.io/plans/block/block-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Block Rate Limits](https://apis.io/rate-limits/block/block-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Block Finops](https://apis.io/finops/block/block-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.block.xyz)
 - [Documentation](https://developer.squareup.com/docs)
-- [Getting Started](https://developer.squareup.com/docs/get-started)
+- [Getting started](https://developer.squareup.com/docs/get-started)
 - [Pricing](https://squareup.com/us/en/payments/our-rates)
-- [Status Page](https://www.issquareup.com/)
 - [Support](https://developer.squareup.com/forums)
-- [GitHub Organization](https://github.com/square)
-- [Terms of Service](https://squareup.com/us/en/legal/developer)
-- [Privacy Policy](https://squareup.com/us/en/legal/privacy)
-- [Login](https://developer.squareup.com/apps)
-- [Square SDKs](https://developer.squareup.com/docs/sdks)
+- [Changelog](https://developer.squareup.com/docs/release-notes)
+- [Blog](https://block.xyz/news)
+- [Terms of service](https://squareup.com/us/en/legal/developer)
+- [Privacy policy](https://squareup.com/us/en/legal/privacy)
+- [GitHub](https://github.com/square)
+- [Status](https://www.issquareup.com/)
 
-## Features
+## API Evangelist rating
 
-| Name | Description |
-|------|-------------|
-| Payment Processing | Accept card-present and card-not-present payments using Square hardware, web, or mobile SDKs with OAuth 2.0 or access token authentication. |
-| Order Management | Create, update, and fulfill orders with line items, discounts, taxes, and service charges across online and in-person channels. |
-| Catalog Management | Manage a unified product catalog with items, variations, modifiers, categories, taxes, and discounts synchronized across all locations. |
-| Customer Engagement | Build customer profiles, loyalty programs, gift cards, and marketing campaigns to drive repeat business and customer retention. |
-| Multi-Location Support | Manage multiple business locations with location-specific inventory, pricing, staff permissions, and reporting. |
-| Webhook Events | Subscribe to real-time webhook events for payments, orders, inventory changes, customer activity, and subscription lifecycle events. |
-| Sandbox Environment | Full sandbox environment with test card numbers, merchant accounts, and simulated hardware for development and testing. |
+**Kin Score 49.4** — developing · rubric 0.25.0 · scored 2026-10-23
 
-## Use Cases
+| Facet | Score |
+|---|---|
+| Discoverability | 63.3 |
+| Contract quality | 53.1 |
+| Contract governance | 27.3 |
+| Operational transparency | 50.0 |
+| Developer ergonomics | 56.0 |
+| Access clarity | 25.0 |
 
-| Name | Description |
-|------|-------------|
-| Point of Sale Integration | Retailers and restaurants build custom POS applications using Square's payment, catalog, and order APIs. |
-| eCommerce Checkout | Online stores integrate Square's Web Payments SDK and Orders API to accept payments and manage fulfillment. |
-| Marketplace Payments | Multi-seller marketplaces use Square Connect to route payments to sellers and manage fees through the Payouts API. |
-| Subscription Billing | SaaS and service businesses use Square Subscriptions API for automated recurring billing and invoice management. |
-| Loyalty and Rewards | Businesses implement custom loyalty programs using the Loyalty API to track points, tiers, and reward redemptions. |
+**Agent readiness 42.2** — agent-ready (gated down from agent-native)
 
-## Integrations
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | verified |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | unknown |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | distinct |
 
-| Name | Description |
-|------|-------------|
-| WooCommerce | Official Square extension for WooCommerce synchronizes inventory, products, and payments between WordPress stores and Square. |
-| BigCommerce | Square integration for BigCommerce enables omnichannel selling with synchronized catalog and unified payment processing. |
-| Xero | Square-Xero integration automatically syncs sales transactions and payments to Xero accounting for reconciliation. |
-| QuickBooks | Square connector for QuickBooks Online syncs sales, refunds, and fees to QuickBooks for financial reporting. |
+**Regulatory alignment 31.3** — Payments
 
-## Artifacts
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/block/](https://apis.io/providers/block/).
 
-Machine-readable API specifications organized by format.
+## How this profile is made
 
-### OpenAPI
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-- [Square API](openapi/block-square-api-openapi.yaml)
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Block: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
-### JSON Schema
+## Open an issue
 
-- [Payment](json-schema/block-payment-schema.json)
-- [Order](json-schema/block-order-schema.json)
-- [Customer](json-schema/block-customer-schema.json)
-- [Catalog Object](json-schema/block-catalog-object-schema.json)
-
-### JSON Structure
-
-- [Payment](json-structure/block-payment-structure.json)
-- [Order](json-structure/block-order-structure.json)
-- [Customer](json-structure/block-customer-structure.json)
-- [Catalog Object](json-structure/block-catalog-object-structure.json)
-
-### JSON-LD
-
-- [Block Context](json-ld/block-context.jsonld)
-
-### Examples
-
-- [Payment Example](examples/block-payment-example.json)
-- [Order Example](examples/block-order-example.json)
-- [Customer Example](examples/block-customer-example.json)
-- [Catalog Object Example](examples/block-catalog-object-example.json)
-
-## Capabilities
-
-Naftiko capabilities organized as shared per-API definitions composed into customer-facing workflows.
-
-### Shared Per-API Definitions
-
-- [Square API](capabilities/shared/block-square-api.yaml) — 8 operations for payments, orders, catalog, customers, and locations
-
-### Workflow Capabilities
-
-| Workflow | APIs Combined | Tools | Persona |
-|----------|--------------|-------|---------|
-| [Block Square Commerce](capabilities/block-square-commerce.yaml) | Square API | 8 | Retail Sellers, eCommerce Developers, Restaurant Operators, App Integrators |
-
-## Vocabulary
-
-- [Block Vocabulary](vocabulary/block-vocabulary.yaml) — Unified taxonomy mapping 5 resources, 4 actions, 1 workflow, and 4 personas across operational (OpenAPI) and capability (Naftiko) dimensions
-
-## Rules
-
-- [Block Spectral Rules](rules/block-spectral-rules.yml) — 30 rules across 12 categories enforcing Square API conventions
-
-## Maintainers
-
-**FN:** Kin Lane
-
-**Email:** kin@apievangelist.com
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/block/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
